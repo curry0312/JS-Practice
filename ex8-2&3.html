@@ -1,0 +1,26 @@
+<!--Set up a <div id="counter">0</div>, a button with the label "Up", 
+and a variable: let count = 0; 
+so that when clicking the button, the number in the div increases by 1. 
+(hint: use count = count + 1;)
+-->
+<html>
+    <body>
+        <div id="counter">0</div>
+        <button id="inCreaseButton" onclick="inCrease()">Up</button>
+        <button onclick="deCrease()">Down</button>
+        <script>
+            let count = 0;
+            const counterShow = document.getElementById('counter');
+
+            function inCrease() {
+                count = count + 1;
+                counterShow.innerText = count;
+            }
+
+            function deCrease() {            
+                count = count - 1;
+                counterShow.innerText = count;
+            }
+        </script>
+    </body>
+</html>

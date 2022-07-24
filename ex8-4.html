@@ -1,0 +1,27 @@
+<!--
+Create a button that takes what's inside the textbox, 
+puts it in a div and adds the div to the page.
+-->
+<html>
+    <body>
+        <input id="textBox" type="text" />
+        <button id="pushButton" onclick="pushElement()">push</button>
+        <div id="contentBox"></div>
+        <script>
+            const container = document.getElementById('contentBox');
+            const title = document.getElementById('textBox');
+
+            function pushElement() {
+                const titleValue = title.value;/*let the value of the textbox 
+                put into titleValue varible that we just created*/
+
+                const element = document.createElement('div');/*create an 'div' element*/
+                element.innerText = titleValue;/*let the textbox's value push into 
+                'div' element we've just created*/
+                container.appendChild(element)/*push the div element
+                (which include the textbox's value) into main div*/
+            }
+
+        </script>
+    </body>
+</html>

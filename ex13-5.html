@@ -1,0 +1,35 @@
+<!--
+    Similarly, write a function pickFruits 
+    that removes 2 apples and 1 orange from the array.
+-->
+<html>
+    <body>
+        <script>
+            function pickFruits(Arrayfruits) {
+                let applePicked = 0;
+                let orangePicked = 0;
+                return Arrayfruits.filter(function(fruit) {
+                    if (applePicked === 2 && orangePicked === 1){
+                        return true;
+                    }
+                    else if (fruit === 'apple') {
+                        applePicked += 1;
+                        return false;
+                    }
+                    else if(fruit === 'orange') {
+                        orangePicked += 1;
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                })
+            }
+
+            const test1 = ['cherry', 'apple', 'orange', 'apple', 
+                            'banana', 'apple', 'orange', 'orange'];
+
+            console.log(pickFruits(test1));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!--
+    Write a function pickLastApples similar to above 
+    that removes the last 2 apples from the array. 
+    (Use Google to get the code for reversing an array.)
+-->
+
+<html>
+    <body>
+        <script>
+            function pickLastApples(Arrayfruits) {
+                let applePicked = 0;
+                return Arrayfruits.filter(function(fruit){
+                    if (applePicked === 2) {
+                        return true;
+                    }
+                    else if (fruit === 'apple') {
+                        applePicked += 1;
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                })
+            }
+
+            let test1 = ['cherry', 'apple', 'orange', 'apple', 'banana', 'apple'];
+            let test1Reverse = test1.reverse();
+            const result = pickLastApples(test1Reverse)
+            console.log(result.reverse())
+
+
+        </script>
+    </body>
+</html>

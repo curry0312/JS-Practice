@@ -1,0 +1,34 @@
+<!--
+    Write a function pickApples that takes an array of strings 
+    representing fruits and returns the array 
+    with the first 2 occurrences of "apple" removed.
+
+    Example: pickApples(['cherry', 'apple', 'orange', 'apple', 'banana', 'apple']);
+    should return ['cherry', 'orange', 'banana', 'apple']
+-->
+<html>
+    <body>
+        <script>
+            function pickApples(Arrayfruits) {
+
+                let calculate = 0;
+
+                return Arrayfruits.filter(function(fruit) {
+                    if(calculate >= 2) {
+                        return true;
+                    }
+                    else if(fruit === 'apple'){
+                        calculate = calculate + 1; 
+                        return false;                    
+                    }
+                    else {
+                        return true;
+                    }
+                })
+            }
+
+            result1 = pickApples(['cherry', 'apple', 'orange', 'apple', 'banana', 'apple']);
+            console.log(result1);
+        </script>
+    </body>
+</html>

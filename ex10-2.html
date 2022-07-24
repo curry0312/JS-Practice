@@ -1,0 +1,59 @@
+<!--
+Create a <div id="receipt"></div>.
+Write a function displayReceipt that takes the same array of objects as exercise 1 
+and display a receipt using these steps:
+
+1.Reset <div id="receipt"> to be empty using .innerHTML
+2.For each object in the array, add a line to the receipt in this format: <div>Apple $4 * 2 = $8</div>
+3.At the bottom, display the total: <div>Cart total = $17</div>
+-->
+<html>
+    <body>
+        <div id="receipt"></div>
+        <script>
+            const myArray = [
+                {name: 'Apple',price: 4,quantity: 2},
+                {name: 'Orange',price: 3,quantity: 3},             
+            ]
+
+            function displayReceipt(selectedArray) {
+
+                document.getElementById('receipt').innerHTML = '';
+                const receiptShow = document.getElementById('receipt');
+
+                /**/
+
+                selectedArray.forEach(function(eachItem) {
+                    const elementEach = document.createElement('div');
+                    elementEach.innerText = eachItem.name + '$' + eachItem.price + '*' 
+                    + eachItem.quantity + '=' + '$' + ((eachItem.price) * (eachItem.quantity));
+                    receiptShow.appendChild(elementEach)
+                });
+
+                /**/
+
+                let total = 0
+                /*
+                It must be put at the outside of forEach function 
+                , otherwise it would be loop every time the function start, always 
+                starting at zero(couldn't be added from the former value.)
+                */
+                selectedArray.forEach(function(eachItem){
+                    total = total + eachItem.price * eachItem.quantity;
+                })
+
+                const elementTotal = document.createElement('div');
+                elementTotal.innerText = total;
+                receiptShow.appendChild(elementTotal);
+                /*
+                They shouldn't be put into the foreach function as well because it will
+                seperate every single value into each 'div' that it's created.
+                We want to add every single value together , not seperate them.
+                */
+            }
+
+            displayReceipt(myArray)
+        </script>
+        
+    </body>
+</html>

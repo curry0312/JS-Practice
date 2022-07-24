@@ -1,0 +1,26 @@
+<!--
+Create a shopping cart. Set up a <div id="cart"></div> 
+and 4 buttons labeled "Apple", "Tomato", "Eggs", and "Clear". 
+When clicking the first 3 buttons, add a div inside the <div id="cart"> 
+containing your food selection. When clicking "Clear" remove all items from the cart.
+-->
+<html>
+    <body>
+        <button onclick="addFood('Apple')">Apple</button>
+        <button onclick="addFood('Tomato')">Tomato</button>
+        <button onclick="addFood('Eggs')">Eggs</button>
+        <button onclick="clearFood()">Clear</button>
+        <div id="cart"></div>
+        <script>
+            const cartList = document.getElementById('cart');
+            function addFood(food) {
+                const element = document.createElement('div');
+                element.innerText = food;
+                cartList.appendChild(element);
+            }
+            function clearFood() {
+                cartList.innerHTML = '';
+            }
+        </script>
+    </body>
+</html>

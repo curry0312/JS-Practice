@@ -1,0 +1,28 @@
+<!--
+    Write a function named max that takes an array of numbers 
+    and returns the largest number in the array.
+    Example: max([1, 5, -2, 4, 3, 5, 0]); will return 5
+-->
+<html>
+    <body>
+        <script>
+            
+            function max(Arraynumbers) {
+
+                let max = -Infinity;
+
+                Arraynumbers.forEach(function(number){
+                    if (number > max) {
+                        max = number;
+                    }
+                })
+
+                return max;
+
+            }
+
+            let Arraynumbers1 = [3,5,11,-5,-7,-4,99,-98,55,-45];
+            console.log(max(Arraynumbers1));
+        </script>
+    </body>
+</html>

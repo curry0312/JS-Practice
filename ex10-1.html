@@ -1,0 +1,32 @@
+<!--
+Write a function cartTotal that takes an array of objects cartArray 
+where each object contains a name, price, and quantity. 
+console.log the total price of the items in the cart.
+-->
+<html>
+    <body>
+        <script>
+            
+            function cartTotal(cartArray) {
+                let total = 0;
+
+                cartArray.forEach(function(item){
+                    total = total + item.price * item.quantity;
+                })
+
+                console.log(total);
+            }
+
+            const array = [
+                {name: 'Apple', price: 4,quantity: 2},
+                {name: 'Orange', price: 3,quantity: 3}
+            ];
+            
+            cartTotal(array)
+            // cartTotal([
+            //     {name: 'Apple', price: 4,quantity: 2},
+            //     {name: 'Orange', price: 3,quantity: 3}
+            // ])
+        </script> 
+    </body>
+</html>

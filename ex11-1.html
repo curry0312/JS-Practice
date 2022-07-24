@@ -1,0 +1,45 @@
+<!--
+Create a variable: let total = 0;
+Run the code: Object.keys({ ... }); 
+using the object to get a list of its properties. 
+Example: Object.keys({ Apple: 3, Orange: 4, Egg: 2 }); 
+results in ['Apple', 'Orange', 'Egg']
+For each food, render a div containing the name, price, and an "Add" button.
+When pressing the add button, add the price of the food to the total variable. 
+Example: <div>Apple $3<button ...>Add</button></div>, Click button, total = total + 3
+-->
+
+<html>
+    <body>
+        <script>
+
+            let total = 0;
+            const foods = {Apple: 3, Orange: 4, Eggs: 2}/*Create a food object*/
+
+            function createCart(foodslist) {
+                
+                const foodsName = Object.keys(foodslist);/*Catch every single keys of the object, and display as an array.*/
+                const totalElement = document.createElement('div');
+
+                foodsName.forEach(function(name){
+                    const element = document.createElement('div');/*create a div element*/
+                    const foodsPrice = foodslist[name];/*Price of every single value*/
+                    element.innerText = name + ' $' + foodsPrice;/*Every single label of the value*/
+
+                    const addButton = document.createElement('button');/*create a button element*/
+                    addButton.innerText = 'add';/*Put some text into the button*/
+                    addButton.onclick = function() {
+                        total = total + foodsPrice;
+                        totalElement.innerText = total;
+                        document.body.appendChild(totalElement);
+                    };
+
+                    element.appendChild(addButton);
+                    document.body.appendChild(element);
+                })
+            }
+
+            createCart(foods)
+        </script>
+    </body>
+</html>

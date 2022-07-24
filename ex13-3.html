@@ -1,0 +1,52 @@
+
+<html>
+    <body>
+        <script>
+            
+            function positiveNumber(Arraynumbers) {/*Write a function that 
+                returns the smallest number that’s greater or equal to 0.*/
+
+                let min = Infinity;
+
+                Arraynumbers.forEach(function(number){
+
+                    if(number < 0) {
+                        return;
+                    }
+
+                    else if(number < min) {
+                        min = number;
+                    }
+
+                })
+
+                return min;
+
+            }
+
+            /*********************************************/
+
+            function negativeNumber(Arraynumbers) {/*Write a function that 
+                returns the smallest number that’s greater or equal to 0.*/
+
+                let max = -Infinity;
+
+                Arraynumbers.forEach(function(number){
+                    if (number > 0) {
+                        return;
+                    }
+                    else if (number > max) {
+                        max = number;
+                    }
+
+                })
+
+                return max;
+            }
+
+            console.log(positiveNumber([1,-4,3,6,9,-5,-45,99]))
+            console.log(negativeNumber([1,-4,3,6,9,-5,-45,99]))
+
+        </script>
+    </body>
+</html>

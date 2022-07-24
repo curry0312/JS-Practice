@@ -1,0 +1,27 @@
+<!--
+    Write a function aboveFreezing that takes an array of numbers temps 
+    and returns an array with only temperatures 
+    that are above the freezing point of water.
+    Temperature can be in Celsius or Fahrenheit, you decide.
+-->
+
+<html>
+    <body>
+        <script>
+            function aboveFreezing(temps) {
+                const tempsAboveFreezing = temps.filter(function(degree) {
+                    // return degree > 0;
+                    if (degree > 0) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }) 
+                return tempsAboveFreezing;
+            }
+            const ex1 = [-5, 45, -1, 8, -3, -6, 9]
+            console.log(aboveFreezing(ex1))
+        </script>
+    </body>
+</html>

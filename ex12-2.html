@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <script>
+            function removeRed(foodArray) {
+                const result = foodArray.filter(function(each){
+                    if (each.color === 'red'){
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                })
+                return result;
+            }
+
+            console.log(removeRed([{ name: 'Apple', color: 'red' }, { name: 'Egg', color: 'white' }]))
+        </script>
+        
+    </body>
+</html>

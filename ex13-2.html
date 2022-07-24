@@ -1,0 +1,24 @@
+<!--
+    Similarly, write a function min that returns the smallest number in the array.
+-->
+<html>
+    <body>
+        <script>
+            function min(Arraynumbers) {
+
+                let min = Infinity;
+
+                Arraynumbers.forEach(function(number) {
+                    if(number < min) {
+                        min = number;
+                    }
+                })
+                
+                return min;
+            }
+
+            let Arraynumbers2 = [2,6,-3,5,-2,-1,66];
+            console.log(min(Arraynumbers2));
+        </script>
+    </body>
+</html>
