@@ -1,0 +1,29 @@
+<!--
+    > 0	sort a after b
+    < 0	sort a before b
+    === 0	keep original order of a and b
+-->
+
+<script>
+    const testArray1 = [1,4,3,6,8,12,11,9];
+    testArray1.sort(function(x,y) { /* be sorted by increasing */
+        return x-y;
+        // 1-4 < 0 => 1 before 4
+        // 4-3 > 0 => 4 after 3
+        // 3-6 < 0 => 3 before 6
+        // 6-8 < 0 => 6 before 8
+        // 8-12 < 0 => 8 before 12
+        // 12-11 > 0 => 12 after 11 
+    })
+    console.log(testArray1);
+
+
+    testArray1.sort(function(x,y) {/*be sorted by decending*/
+        return y-x;
+        // 4-1 > 0 => 1 after 4 
+        // 3-4 < 0 => 4 before 3
+    })
+    console.log(testArray1);
+
+
+</script>
