@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let m = new Map([[1,"one"]]);
+        for(let [key,value] of m) {
+            console.log(m);
+        }     
+
+        let o1 = {x:1,y:2,z:3};
+        let a = [], k = 0;
+        for(a[k++] in o1)/*empty*/ ;// It catch the property a[0]=x, a[1]=y, a[2]=z;
+        console.log(a);
+        for(let i in a) {
+            console.log(i);//It seems to be =>// 0:"x"
+        }                                     // 1:"y"
+                                              // 2:"z"
+        
+    </script>
+</body>
+</html>
