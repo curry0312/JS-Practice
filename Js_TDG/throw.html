@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //throw
+        function factorial(x) {
+            //if the input argument is invalid, throw an exception!
+            if(x<0) {
+                throw new Error("x must not be negative");
+            }
+            //otherwise, compute a value and return normally
+            let f;//we have to declare first outside the loop so that we can return
+            for(f = 1; x > 1; x--){
+                f *= x;
+                console.log(f)
+            }
+            return f;
+        }
+        console.log(factorial(4));
+    </script>
+</body>
+</html>
