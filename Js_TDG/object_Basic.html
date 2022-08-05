@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //declare object
+            let o = {x:1,y:2,z:3};//creating new object with object literal
+            let o1 = new Object()//creating new object with new
+            let o2 = Object.create({x:1,y:2})//creating new object with Object.create()
+
+        
+        //adding new stock to the portfolio
+            function addstock(portfolio/*It's an object*/, stockname, shares) {
+                portfolio[stockname] = shares;//add the value(shares) to object(portfolio) with the name(stockname)
+            }
+
+        //loop in object
+            function computeValue(portfolio) {
+                let total = 0;
+                for (let stock in portfolio) { //For each stock in the potfolio
+                    let shares = portfolio[stock]; //get the number of shares
+                    let price = getQuote(stock); //look up share price
+                    total = total + shares * price;
+                }
+                return total;
+            }
+
+////////////////////////////////////////////////
+
+        //inherited 1
+            let o3 = {};
+            o3.x = 1;
+            let p = Object.create(o3);
+            p.y = 2;
+            let q = Object.create(p);
+            q.z = 3;
+            let f = q.toString();
+
+            console.log(o3); //{x:1};
+            console.log(p); //{y:2}; inherited {x:1} from o3 btw
+            console.log(q); //{z:3}; inherited {x:1,y:2}; from o3 & p btw
+            console.log(q.x + q.y);
+            console.log(f);
+
+        //inherited 2
+            let unitcircle = {r:1,z:100};
+            let c = Object.create(unitcircle);
+            c.x=1;
+            c.y=1;
+            c.r=2;
+            console.log("unitcircle = ", unitcircle);
+            console.log("c = ", c);
+            console.log(c.z,unitcircle.z)
+
+            //to verified the property is exist
+            let surname = undefined;
+            const book = Object.create({})
+            if(book) {
+                if(book.author) {
+                    surname = book.author.surname;
+                }
+            }
+
+////////////////////////////////////////////
+
+        //delete properties
+            let o4 = {x:1};
+            delete o4.x //true
+            delete o4.x //true, although it already doesn't exist
+            delete 1 //true, nonsense(胡說),bit true anyway
+
+
+            //global (variable & function) and non-configurable are not deletable
+            delete Object.prototype //false: property is non-configurable
+            var x = 1;
+            delete globalThis.x; //false: can;t delete this property
+            function w() { //declared a global function
+                /*empty*/
+            }
+            delete globalThis.w(); //false, can't delete this property either
+
+            //deletable
+            globalThis.x = 1 //Create a configurable global property(no let or var)
+            delete x; //true:this property can be deleted
+
+            //in strict mode 
+            delete x; //SyntaxError in strict mode
+            delete globalThis.x; //This work
+    
+///////////////////////////////////////////////////
+
+        //Testing properties
+
+            //use => in
+            let o5 = {x:1, k:undefined,};
+            "x" in o5; //true: o5 has an own property "x"
+            "y" in o5; //false: o5 doesn't have property "y"
+            "tostring" in o5 //true: o5 has an inherited property "tostring"
+            "k" in o5; //true: although its value is undefined
+
+
+            //use => hasOwnProperty() //include non-enumerable
+            let o6 = {x:1};
+            o6.hasOwnProperty("x"); //true: o6 has an own property "x"
+            o6.hasOwnProperty("y"); //false: o6 doesn't have property "y"
+            o6.hasOwnProperty("tosrting"); //false: it's an inherited property, not its own
+
+            //use => propertyIsEnumerable() //doesn't include non-enumerable
+            //tips:return true only if the named property is an "own property" and is enumerable
+            let o7 = {x:1};
+            o7.propertyIsEnumerable("x") //true: o7 has an own enumerable property "x"
+            o7.propertyIsEnumerable("tostring") //false: not an own property "tostring"
+            Object.prototype.propertyIsEnumerable("tostring") //false: although it's its own property, it's non-enumerable
+
+            //A sufficient way to check it's not undefined
+            let o8 = {X:1};
+            o8.x !== undefined; //true: o8 has property x;
+            o8.y !== undefined; //false: o8 doesn't have property y
+            o8.tostring !== undefined; //true: o8 inherits a tostring property from Object.prototype
+
+/////////////////////////////////////////////
+        
+        //Enumerating properties
+        
+            //We can't loop non-enumerable property such as Built-in method
+            let o9 = {x:1};
+            o9.propertyIsEnumerable("tostring")
+            for(let i in o9) {
+                console.log(i);// Print x,y and z, but not tostring because it's method.
+            }
+
+            //We don't want to get inherited properties
+            for(let p in o9) {
+                if(!o9.hasOwnProperty(p)) { //Skip inherited properties
+                    continue;
+                }
+            }
+            for(let p in o9) {
+                if(typeof o[p] === 'function'){ //Skip all method
+                    continue; 
+                }
+            }
+
+            //Object.keys(o)
+            //Object.getOwnPropertyNames(o)
+            //Object.getOwnPropertySymbols(o)
+            //Reflect.ownkeys(o)
+
+/////////////////////////////////////////
+
+        //Extending Objects
+
+            //Easy way
+            let target = {x:1}, source = {y:2,z:3};
+            for(let source_property of source) {
+                target[source_property] = source[source_property];
+            }
+            console.log(target); // => {x:1,y:2,z:3}
+
+            //Object.assign()
+            Object.assign(o,defaults); //overwrite everything in o with defaults
+
+            //defaults ==> {} , o ==> {defaults}
+            Object.assign({},defaults,o); //create a new object,cope the defaults into it, and override those defaults with the properties in o.
+
+            //Like Object.assign() but doesn't override existing properties, and also doesn't handle Symbol properties.
+            function merge(target,...source) {
+                for(let source_property of source) {
+                    for(let key of Object.keys(source)) {
+                        if (!(key in target)) { //This is different from Object.assign()
+                            target[source_property] = source[source_property];
+                        }
+                    }
+                }
+                return target;
+            }
+            //Example for Object.assign() and function merge()
+            Object.assign({x:1}, {x:2,y:2}, {y:3,z:4}); // => {x:2, y:3, z:4}
+            merge({x:1}, {x:2,y:2}, {y:3,z:4}); // => {x:1, y:2, z:4}
+
+                //restrict() => delete properties of an object if they don't appear in another template object
+                //subtract() => remove all of the properties of one object from another object
+
+////////////////////////////////////////////////////////
+
+        //Serializing Objects
+
+            // JSON.stringify(o) and JSON.parse(o)
+            let o10 = {x:1,y:{z:[false, null, ""]}}
+            let s = JSON.stringify(o10); // s == {"x":1,"y":{"z":[false, null, ""]}}
+            let p = JSON.stringify(s); // p == {x:1,y:{z:[false, null, ""]}}
+
+///////////////////////////////////////////////////////
+    </script>
+</body>
+</html>

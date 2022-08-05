@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //catch the property of the object
+        const o = {x:1,y:2,z:3,w:4};
+        for(let p in o){
+            console.log("p = " + p);
+            console.log(o[p]);
+        }
+
+        console.log("for/of example");
+
+        for(let k of Object.keys(o)) {
+            console.log("k = " + k);
+            console.log(o[k]);
+        }
+    </script>
+</body>
+</html>

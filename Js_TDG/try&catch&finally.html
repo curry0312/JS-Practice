@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function factorial(x) {
+            let f;
+            for(f=1;x>0;x--){
+                f*=x;
+            };
+            return f;
+        }
+
+
+        try {
+            let n = Number(prompt("Please enter a positive integer",""))
+            //Compute the factorial of the number, assuming the input is valid
+            let r = factorial(n);
+            //display the result
+            alert(n+"!="+r);
+        }
+        catch(ex) {
+            alter(ex);//Tell the user what the error is
+        }
+    </script>
+</body>
+</html>
