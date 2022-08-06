@@ -169,7 +169,7 @@
             Object.assign({},defaults,o); //create a new object,cope the defaults into it, and override those defaults with the properties in o.
 
             //Like Object.assign() but doesn't override existing properties, and also doesn't handle Symbol properties.
-            function merge(target,...source) {
+            function merge(target,...source) {//because there's two sources, it can loop by "of"
                 for(let source_property of source) {
                     for(let key of Object.keys(source)) {
                         if (!(key in target)) { //This is different from Object.assign()

@@ -8,7 +8,204 @@
 </head>
 <body>
     <script>
+        //Object Methods
+
+            //tostring
+                let s = {x:1, y:1}.toString(); // s == "[object object]"
+
+                let point = {
+                    x:1,
+                    y:2,
+                    toString: function() {
+                        return `(${this.x} , ${this.y})`;
+                    }
+                };
+                console.log(String(point)); // =>"(1,2)": toString() is used for string conversions
+                console.log(point.toString()); //same as above
+
+            //toLocaleString()
+                let point1 = {
+                    x:1,
+                    y:2,
+                    toString: function() {
+                        return `(${this.x} , ${this.y})`;
+                    },
+                    toLocaleString: function() {
+                        return `(${this.x.toLocaleString}, ${this.y.toLocaleString})`;
+                    }
+                };
+                point.toString() // =>"(1000, 2000)"
+                point.toLocaleString() // => "(1,000, 2,000)": notge thousands separators
+
+            //valueOf() usually used for coverting to number
+                let point3 = {
+                    x:3,
+                    y:4,
+                    valueOf: function() {
+                        return Math.hypot(this.x, this.y);
+                    }
+                };
+                Number(point3) // => 5: valueOf() is used for conversion to numbers
+                point > 4 // => true
+                point > 5 // => false
+                point < 6 // => true
+
+            //toJSON()
+                let point4 = {
+                    x:1,
+                    y:2,
+                    toString: function() {
+                        return `(${this.x} , ${this.y})`;
+                    },
+                    toJSON: function() {
+                        return this.toString();
+                    },
+                };
+                //JSON.stringify() method looks for toJSON method on any object it's asked to serialize
+                JSON.stringify([point4]); // => '["(1,2)"]'
+
+        //Extended Object Literal Syntax
+            //shorthand Properties
+                let x = 1,y = 2;
+                let o = {
+                    x:x,
+                    y:y,
+                }
+                    //We actually can drop the colon and one copy of the identifier.
+                    let a=1,b=2;
+                    let o1 = {a,b}; // equal to o1 = {
+                                    //                  a:1,
+                                    //                  b:2
+                                    //           }
+
+        //Computed Property Name ([name]:value)
+            const PROPERTY_NAME = "p1";
+            function computePropertyName(){
+                return "p" + 2;
+            }
+
+            let o2 = {};
+            o[PROPERTY_NAME] = 1;
+            o[computePropertyName()] = 2;
+
+                //We also can do like this
+                    const PROPERTY_NAME1 = "p1"
+                    function computePropertyName(){
+                        return "p" + 2;
+                    }
+
+                    let o3 = {
+                        [PROPERTY_NAME]:1,  //if the name of that property  is not a compile-time const, we have to store in varible and use square brackets
+                        [computePropertyName()]:2,
+                    };
+                    console.log(o3.p1 + o3.p2); // => 3
+
+
+        //Symbols as Property Names (Symbol(expression))
+        //It's not safe enough to use symbol to store you properties to thrid-party object because it can use getOwnPropertySymbol() to get yor symbol and delete it(maybe)
+            const extension = Symbol("my extension symbol")
+            let o4 = {
+                [extension]:{/*extension data stored in this object*/}
+            };
+            o4[extension].x = 0;//this won't conflict with other properties o
+
+
+        //spread Operator (...)
+            let position = {x:0, y:0};
+            let dimensions = {
+                width: 100,
+                height: 75
+            }
+            let rect = {...position, ...dimension}
+            rect.x + rect.y + rect.width + rect.height // => 75
+
+            //note that we can't use ... to get the inherited property
+                let o = Object.create({x:1});
+                let p = {...o};
+                console.log(p.x); // => undefined because it can not get the inherited property 
         
+        //Shorthand Methods
+        let o5 = {
+            x:1,
+            y:1,
+            area:function() { //If we want to create a object method,we have to do this way before
+                return (this.x * this.y);
+            },       
+        }
+        o5.area();
+
+            //However, ES6 later,we can do this way instead
+                let o6 = {
+                    x:1,
+                    y:1,
+                    area() { //more easy way
+                        return (this.x*this.y);
+                    }
+
+                }
+                o6.area();
+
+            //when using shorthanded syntax, the property name can take any of the forms
+                const METHOD_NAME = "m";
+                const symbol = Symbol();
+                let weirdMethod= { //all of them are methods
+                    "method With Space"(x) {
+                        return x + 1;
+                    },
+                    [METHOD_NAME](x) {
+                        return x + 2;
+                    },
+                    [symbol](x) {
+                        return x + 3;
+                    }
+                }
+        
+
+        //Property Getter and Setter
+            let o7 = {
+                //An ordinary data prpperty
+                dataProp: value,
+                 //An accessor property defined as a pair of function*/
+                get accessorProp() {
+                    return this.dataProp;
+                },
+                set accessorProp(value) {
+                    this.dataProp = value;
+                },
+            };
+
+            //More complicated
+                let o8 = {
+                    //x and y are regular read-write data properties
+                    x: 1.0,
+                    y: 1.0,
+
+                    //r is read-write accessor property with getter and setter
+                    get r() {
+                        return Math.hypot(this.x, this.y);
+                    },
+
+                    set r(newvalue) {
+                        let oldvalue = Math.hypot(this.x, this.y);
+                        let ratio = newvalue/oldvalue;
+                        this.x *= ratio;
+                        this.y *= ratio;
+                    },
+
+                    //theta is a raed-only accessor property with getter only
+                    get theta() {
+                        return Math.atan2(this.x ,this.y);
+                    },
+                };
+                p.r // => Math.SQRT2
+                p.theta // => Math.PI / 4
+
+            
+
+            
+
+        
+            
     </script>
 </body>
 </html>
