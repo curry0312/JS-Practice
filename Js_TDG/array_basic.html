@@ -20,10 +20,128 @@
                 let count = [1,,3]; //Elements at indexes 0 and 2. No element at index 1
                 let undef = [,,]; //An array with no elements but length of 2. Warning: Array literal syntax allows an optional trailing comma!
 
-        /*The Spread Operator*/
-        
+///////////////////////////////////////////////////////////////////////////////////
 
-                
+        /*The Spread Operator(...插入)*/
+           let x = [1,2,3];
+           let y = [0,...x,4]; //y == [0,1,2,3,4];
+
+           /*More example*/
+            let original = [1,2,3];
+            let copy = [...original];
+            copy[0] = 0; //Modifying the copy doesn't change the original //cope = [0,2,3]
+            original[0] // => 1 //original = [1,2,3]
+        
+            /*String are iterable*/
+                let digits = [..."0123456789ABCD"];
+                digits // => ["0","1",....]
+
+            /*We can use set to get the label once*/
+                let letters = [..."Hello world"];
+                [...new Set(letters)] // => ["h", "e", "l", "o"...]
+
+///////////////////////////////////////////////////////////////////////////////////
+
+        /*The Array() Constructor*/
+            let a = new Array();
+            /*If you want to specifies a length*/
+                let a1 = new Array(10);//still no value in this array,but the length of this array is specified to 10.
+            /*We can put elements in array like this way*/
+                let a2 = new array(5,4,3,2,1,"testing, testing");
+        
+        /*Array.of()*/
+            Array.of() // => [] , return empty array with no argument.
+            Array.of(10) // => [10] , can create arrays with single numeric argument.
+            Array.of(1,2,3) //[1,2,3]
+        
+        /*Array.from() (like [...iterable])*/
+            let copy = Array.from(original);
+
+            /*convert array-like to true array*/
+                let truearray = Array.from(arraylike);
+
+            /*array is like object, we can give them a name*/
+                a[-1.23] = true; //This creates a property named "-1.23"
+                a["1000"] = 0; //This the 1001st element of the array
+                a[1.000] = 0; //Array index 1. Same as a[1] = 1;+
+            
+            /*out of bounds*/
+                let a = [true, false];  //This array has elements at index 0 and 1;
+                a[2]    // => undefined; out of range
+                a[-1]   // => undefined; no property with this name
+
+        /*Array length*/
+            [1,2,3].length // => 3: the array has no element
+            /*If we set the length property smaller than the current array.length, whose index is greater than or equally to are deleted from the array*/
+                a = [1,2,3,4,5];
+                a.length = 3; // a is now [1,2,3]
+                a.length = 0; // Delete all elements. a is []
+                a.length = 5; // length is 5, but no elements, like new Array(5)
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+        /*Adding and Deleting Array Elements*/
+            let a =[];
+            a[0] = "zero";
+            a[1] = "one";
+            console.log(a); // => ["zero", "one"]
+
+            /*push() pop() shift() unshift()*/
+            let a = [];
+            a.push("zero");
+            a.push("one", "two");
+
+            /*delete elements' index*/
+                let a = [1,2,3];
+                delete a[2]; // => [1,2, <empty>]
+                2 in a; // => false; warning: 2 is index not elements itself
+                a.length; // => 3: delete doesn;t affect array length.
+
+////////////////////////////////////////////////////////////////////////////////////
+
+        /*Iterating Arrays*/
+            let Letters = [..."Hello world"];
+            let string = "";
+            for (let letter in Letters) {
+                string += letter;
+            }
+            console.log(string); // => "Hello world", we reassembled the original text
+
+            /*for/of loop array and need to know the index of each array element*/
+                let Letters1 = [..."Hello world"];
+                let everyother = "";
+                for (let [index, letter] of Letters1.entries()) {
+                    if (index % 2 === 0) {
+                        everyother += letter;
+                    }
+                }
+                everyother // => "Hlowrd"
+
+            /*forEach()*/
+                let Letters2 = [..."hello world"]
+                let uppercase = "";
+                Letters2.forEach((letter)=> {
+                    uppercase += letter.toUpperCase();
+                });
+                console.log(uppercase); // => "HELLO WORLD"
+            
+            /*old fashion way to loop*/
+                let Letters3 = [..."Hello world"]
+                let vowels = "";
+                for (let i = 0; i < Letters3.length; i++){ //For each index in the array
+                    let letter = Letters3[i];
+                    if (/[aeiou]/.test(letter)) {
+                        vowels += letter;
+                    }
+                }
+                console.log(vowels); // => "eoo"
+
+            /*If we want to skip undefined data, use this way*/
+                for(let i = 0; i < a.length; i++){
+                    if(a[i] === undefined) {
+                        continue;
+                    }
+                }
     </script>
 </body>
 </html>

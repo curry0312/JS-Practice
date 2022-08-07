@@ -35,7 +35,7 @@
                     }
                 };
                 point.toString() // =>"(1000, 2000)"
-                point.toLocaleString() // => "(1,000, 2,000)": notge thousands separators
+                point.toLocaleString() // => "(1,000, 2,000)": note thousands separators
 
             //valueOf() usually used for coverting to number
                 let point3 = {
@@ -64,6 +64,8 @@
                 //JSON.stringify() method looks for toJSON method on any object it's asked to serialize
                 JSON.stringify([point4]); // => '["(1,2)"]'
 
+//////////////////////////////////////////////////////////////////////////////
+
         //Extended Object Literal Syntax
             //shorthand Properties
                 let x = 1,y = 2;
@@ -77,6 +79,8 @@
                                     //                  a:1,
                                     //                  b:2
                                     //           }
+
+///////////////////////////////////////////////////////////////////////////////
 
         //Computed Property Name ([name]:value)
             const PROPERTY_NAME = "p1";
@@ -100,6 +104,7 @@
                     };
                     console.log(o3.p1 + o3.p2); // => 3
 
+///////////////////////////////////////////////////////////////////////////
 
         //Symbols as Property Names (Symbol(expression))
         //It's not safe enough to use symbol to store you properties to thrid-party object because it can use getOwnPropertySymbol() to get yor symbol and delete it(maybe)
@@ -123,7 +128,9 @@
                 let o = Object.create({x:1});
                 let p = {...o};
                 console.log(p.x); // => undefined because it can not get the inherited property 
-        
+
+/////////////////////////////////////////////////////////////////////////////      
+ 
         //Shorthand Methods
         let o5 = {
             x:1,
@@ -159,6 +166,8 @@
                         return x + 3;
                     }
                 }
+
+/////////////////////////////////////////////////////////////////////////////////
         
 
         //Property Getter and Setter
