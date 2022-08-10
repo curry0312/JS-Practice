@@ -12,6 +12,29 @@
         delete a[2];
         console.log(a);
         console.log(2 in a);
+
+        let table = new Array(10) //10 rows of the table
+            for(let i = 0; i < table.length; i++) {
+                table[i] = new Array(10); //each row has 10 columns
+                for (let k = 0, z = 0; k,z < table[i].length; k++,z++) {
+                    table[i][z] = k;
+                }
+            }
+        console.log(table);
+
+
+        let b = [1,2,3];
+        let bb = b.map((x) => x*x)
+        console.log(bb);
+
+        let c = [5,,3,,1];
+        c = c.filter((element)=>element>1);
+        console.log(c);
+
+        let n = [1,2,3,4,5];
+            n.copyWithin(2, 3, 5);
+        console.log(n);
+        
     </script>
 </body>
 </html>

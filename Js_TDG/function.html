@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Function*/
+            /*Function can be assigned to a varible*/
+                const square = function(x) {
+                    return x*x;
+                }
+            /*Function can be nested*/
+                function hypotenuse(a,b) {
+                    function square(x) {
+                        return x*x;
+                    }
+                    return Math.sqrt(square(a) + square(b));
+                }
+
+            /*Method Invocation*/
+                /*Having the function f and an object o, we can define a method name m*/
+                    o.m = f;
+                    /*Then we can invoke*/
+                        o.m() //Like a method
+                    /*Of course, we can put argument in it*/
+                        o.m(x,y);
+                    /*In addition, we can use square brackets to cause the method */
+                        o["m"](x,y) = o.m(x,y);
+            
+/////////////////////////////////////////////////////
+            /*Warning: Method invocations differ from function invocation*/
+                /*Object method has invocation context (this)*/
+                    let calculator = {
+                        operand1: 1,
+                        operand2: 2,
+                        add() {
+                            this.result = this.operand1 + this.operand2;
+                        }
+                    };
+                    calculator.add(); //=> 2
+                    calculator.result; //=> 2
+
+                /*Function doesn't have "this",except arrow function*/
+                    const f = () => {
+                        this === o; //true, since arrow functions inherit this
+                    }
+
+                /*These two way may have the same operation*/
+                    rect.setSize(width,height); //object's method
+                    setRectSize(rect, width, height); //function
+/////////////////////////////////////////////////////
+
+            /*Constructor Invocation*/
+                o = new object();
+                o = new object;
+
+/////////////////////////////////////////////////////
+            
+            /*Append the names of the enumerable properties of object o to the array a*/
+                function getPropertyNames(o,a) {
+                    if (a===undefined){
+                        a = [];
+                    }
+                    for(let property in o){
+                        a.push(property);
+                    }
+                    return a;
+                }
+                /*We can define a default value to function*/
+                    function getPropertyNames(o, a = []){
+                        for(let property in o){
+                            a.push(property);
+                        }
+                    }
+                    
+            /*getPropertyNames() can be invoked with one or two arguments*/
+                let o = {
+                    x:1
+                };
+                let p = {
+                    y:2,
+                    z:3,
+                };
+                let a = getPropertyNames(o); // a == ["x"], get o's properties in a new array
+                getPropertyNames(p,a); // a == ["x", "y", "z"]; add p's properties to it
+
+//////////////////////////////////////////////////////////////
+
+            /*Using function to return the manimum value*/
+                function getMax(first = -Infinity,...rest/*This isn't equal to ...spread operator*/) {
+                    let max = first;
+                    for(let eachNumber of rest) {
+                        if(eachNumber > max) {
+                            max = eachNumber;
+                        }
+                    }
+                    return max;
+                }
+                console.log(getMax(1,10,100,2,3,1000,4,5,6));
+            
+            /*Spread Operator for Function Calls*/
+
+            /*Destructurung Function Arguments into Parameter*/
+                function vector([x1,y1],[x2,y2]){
+                    return [x1+x2,y1+y2];
+                }
+                console.log([1,2],[3,4]);
+
+            /*We can set rest parameters by using ...rest*/
+                function vectorMultiply({x,y,z=0,...props},scalar){
+                    return {x:x*scalar,y:y*scalar,z:z*scalar,...props};
+                }
+                console.log(vectorMultiply({x:1,y:2,w:-1},2));//=> {x:2,y:4,z:0,w:-1}
+
+////////////////////////////////////////////////////////
+
+            /*Check if the elements of a must all be numbers*/
+                function sum(a) {
+                    let total = 0;
+                    for (let element of a){
+                        if(typeof element !== "number"){
+                            throw new TypeError("sum():elements must be numbers")
+                        }
+                        total+=elememt;
+                    }
+                    return total;
+                }
+
+//////////////////////////////////////////////////////////
+
+            /*Function can be assign to a variable*/
+                function square(x){
+                    return x*x;
+                }
+                let s = square;
+                square(4) //=>16
+                a(4) //=>16
+
+                /*Function can also be assigned to object*/
+                    let o1 = {
+                        square(x) {
+                            return x*x;
+                        },
+                        x:1,
+                    }
+                    let y = o1.square(4);
+                /*strange function invocation expression*/
+                    let b = [x=>x*x,20,30]; //Create an array
+                    b[0](b[1]); //=> 400: b[0] is a function, without name still can invoke it, though.
+
+                /*We define some simple function here*/
+                    function add(x,y){return x+y;}
+                    function subtract(x,y){return x-y}
+                    function multipy(x,y){return x*y}
+                    function divide(x,y){return x/y}
+                    /*Here is a function that takes one of the preceding function as an argument and invokes it on two operands*/
+                        function operate(operator,operand1,operand2) {
+                            return operator(operand1,operand2);
+                        }
+                        /*We could invoke this function like this to compute the value (2+3) + (4*5)*/
+                            let i = operate(add,operate(),operate()); //operate(operator, operand1, operand2)
+                        /*Then,we take the simple functions into an object*/
+                            const operator = {
+                                add: (x,y)=>x+y,
+                                subtract:(x,y)=>x-y,
+                                multiply: (x,y)=>x*y,
+                                divide: (x,y)=>x/y,
+                                pow: Math.pow //This works for predefined function, too
+                            }
+                        /*This function takes the name of an operator, looks up that operator in this object*/
+                            function operate2(operation,operand1,operand2) {
+                                if (typeof operator[operation] === "function") {
+                                    return operator[operation](operand1,operand2);
+                                }
+                                else {
+                                    throw "unknow operator"
+                                }
+                            }
+                            operate2("add","hello", operate2("add"," ","world"));
+                            //operate2(operation, argument1, argument2)
+                            //argument2 is its own function, we let argument2 invokes first, and the result becaues argument2 then the initial function invokes with two argument including argument1 and argument2 which we have the result brfore.
+
+//////////////////////////////////////////////////////////
+
+                /*Defining Your Own Function Properties*/
+                    /*Function can have its own properties*/
+                        // Initailize the counter property of the function object
+                        uniqueInteger.counter = 0;
+                        // This function returns a different integer each time it is called
+                        //It uses a property of itself to remember the next value to be return
+                        function uniqueInteger(){
+                            return uniqueInteger.counter++;
+                        }
+                        uniqueInteger() //=> 0
+                        uniqueInteger() //=> 1
+
+                    /*Compute factorials, if the number isn't integer and < 0, return NaN*/
+                        function factorials(number){
+                            if(!(number < 0 && Number.isInteger(number))){ 
+                                if(!(n in factorials)) {
+                                    factorials[n] = n * factorials(n-1);
+                                }
+                                return factorials[n];
+                            }                
+                            else{
+                                return NaN;
+                            }
+                        }
+                        factorials[1]=1;
+                        factorial(6) = 720;
+//////////////////////////////////////////////////////////////////////////
+                /*Functions as Namespace*/
+                        /*If we want to reuse function in many places, try to define variables in functions so that there's no confliction with other global variables*/
+                            function chunkNamespace() {
+                                //Chunk of code goes here
+                                //Any variables defined in the chunk are local to this function
+                                //instead of cluttering up the global namespace
+                            }
+///////////////////////////////////////////////////////////////////
+
+            /*Closures*/
+                /*Example1*/
+                    let scope = "global scope"
+                    function checkscope() {
+                        let scope = "local scope";
+                        function f() {return scope;}
+                        return f(); //different
+                    }
+                    checkscope() //=> "local scope"
+
+                /*Example2*/
+                    let scope1 = "global scope"
+                    function checkscope1() {
+                        let scope = "local scope";
+                        function f() {return scope;}
+                        return f; //different
+                    }
+                    let s1 = checkscope1()();//=> "local scope"
+
+                /*Example3*/
+                let uniqueInteger = (()=>{ //uniqueInter is a function
+                    let counter = 0;
+                    return function() {  //uniqueInter function return a function which has no name,and the function return counter++
+                        return counter++;
+                    }
+                });
+                
+                /*Example4*/
+    </script>
+</body>
+</html>
