@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Property*/
+
+        /*call( original object , argument which want to pass into ) and apply() Methods*/
+
+            /*It allows you to indirectly invoke a function as if it were a method of some object*/
+            /*The first argument is the object on which the function is to be invoked*/
+                /*The first argument o become the value of the "this"*/
+                    f.call(o); //=> Take the method f which is in o object
+                    f.apply(o);
+                /*Which is similar like this(suppose we don't have a property name "m")*/
+                    o.m = f // Make f a temporary method of o
+                    o.m() // Invoke it, passing no argument
+                    delete o.m //Remove the temporary method
+                /*Passing the argument into the function*/
+                    f.call(o,1,2);
+                    f.apply(o,[1,2]);//=> apply method argument must be an array; [1,2] argument pass into f method
+
+                /*Using apply() method to find the largest number of the array we passing into*/
+                    const arrayOfNumber = [1,2,3,4,5,6,7,8,9]
+                    let biggest = Math.max.apply(Math, arrayOfNumber)
+
+                /*Replace the method named m of the object o with a version that logs messages before and after invoking the original method*/
+                    function trace(o,m) {
+                        let original = o[m]; //Remember original method in the closure
+                        o[m] = function(...args) { //Now define the new method
+                            console.log(new Date(), "Entering", m); //log message
+                            let result = original.apply(this, args); //invoke original with args argument(args pass into function original)
+                            console.log(new Date(), "Exiting", m); //log message
+                            return result;
+                        };
+                    }
+
+        /*bind() bind a function to an object */
+            function f(y) {return this.x + y}//This function need to be bound
+            let o = {x:1}; //An object we'll bind to
+            let g = f.bind(o); //Calling g(x) invokes f() on o
+            g(2) //=> 3
+            let p = {x:10,g} //Invoke g() as a method of this object
+            p.g(2) //=> 3: g is still bound to o, not p
+
+            /*Partial application*/
+            let sum = (x,y)=>x+y;
+            let succ = sum.bind(null,1)
+            succ(2) //=> 3:x is bound to 1, and we pass 2 for the y argument
+
+            function f(y,z){return this.x + y + z}
+            let m = f.bind({x:1},2); // Bind this and y
+            m(3)    //=> 6 this.x is bound to 1, y is bound to 2 and z is 3
+
+        /*toString() Method*/
+
+ //////////////////////////////////////////////////////
+
+        /*Function() constructor (Not quite important)*/
+            const f = new Function("x", "y", "return x*y");
+            const f1 = function(x,y) {return x*y};
+
+//////////////////////////////////////////////////////
+
+        /*Processing Array with Function*/
+            /*Compute the mean*/
+                const data = [1,1,3,5,5];
+                let total = 0;
+                for(let i = 0; i < data.length; i++) {
+                    total += data[i];
+                }
+                let mean = total / data.length
+
+            /*Use map(function) and reduce(function)*/
+                /*First define two simple function*/
+                    let sum1 = (x,y) => x+y; //Variable "sum1" become a function
+                    let square = (x) => x*x; //Variable "square" become a function
+                /*Then use those function with Array methods to compute mean*/
+                    let data1 = [1,1,3,5,5];
+                    let total1 = data.map(sum1);
+                    let mean1 = total1 / data1.length;
+
+                    /*Or write functional versions of the map() and reduce()*/
+                        const map = function(a,...args){
+                            return a.map(...args);
+                        }
+                        const reduce = function(a,...args){
+                            return a.reduce(...args);
+                        }
+                        const sum2 = (x,y) => x+y;
+                        const square2 = (x) => x*x;
+                        let data2 = [1,1,3,5,5];
+                        let mean2 = map(data2, sum2) / data.length;
+
+
+
+    </script>
+</body>
+</html>

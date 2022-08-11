@@ -89,8 +89,8 @@
             }
 
             let o2 = {};
-            o[PROPERTY_NAME] = 1;
-            o[computePropertyName()] = 2;
+            o2[PROPERTY_NAME] = 1;
+            o2[computePropertyName()] = 2;
 
                 //We also can do like this
                     const PROPERTY_NAME1 = "p1"
@@ -114,6 +114,7 @@
             };
             o4[extension].x = 0;//this won't conflict with other properties o
 
+//////////////////////////////////////////////////////////////////////////
 
         //spread Operator (...)
             let position = {x:0, y:0};
@@ -125,8 +126,8 @@
             rect.x + rect.y + rect.width + rect.height // => 75
 
             //note that we can't use ... to get the inherited property
-                let o = Object.create({x:1});
-                let p = {...o};
+                let o2 = Object.create({x:1});
+                let p = {...o2};
                 console.log(p.x); // => undefined because it can not get the inherited property 
 
 /////////////////////////////////////////////////////////////////////////////      

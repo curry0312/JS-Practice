@@ -8,7 +8,7 @@
 </head>
 <body>
     <script>
-        /*Function*/
+        /*Function(只要是function,,後面都要補上())*/
             /*Function can be assigned to a varible*/
                 const square = function(x) {
                     return x*x;
@@ -138,7 +138,7 @@
                 }
                 let s = square;
                 square(4) //=>16
-                a(4) //=>16
+                s(4) //=>16
 
                 /*Function can also be assigned to object*/
                     let o1 = {
@@ -151,6 +151,8 @@
                 /*strange function invocation expression*/
                     let b = [x=>x*x,20,30]; //Create an array
                     b[0](b[1]); //=> 400: b[0] is a function, without name still can invoke it, though.
+
+/////////////////////////////////////////////////////////////////////
 
                 /*We define some simple function here*/
                     function add(x,y){return x+y;}
@@ -222,7 +224,7 @@
                             }
 ///////////////////////////////////////////////////////////////////
 
-            /*Closures*/
+            /*Closures(nested function)*/
                 /*Example1*/
                     let scope = "global scope"
                     function checkscope() {
@@ -250,6 +252,87 @@
                 });
                 
                 /*Example4*/
+                    function counter() {
+                        let n = 0;
+                        return { //return an object
+                            count:function(){return n++;}, //nested function can use outer function variable before outer function return a value
+                            reset:function(){n=0;}
+                        }
+                    }
+                    let c = counter(), d = counter();
+                    c.count()   //=> 0; It looks like function's property, although it just recall the object property inside the function
+                    d.count()   //=> 0
+                    c.reset()   //=> 0
+                    c.count()   //=> 0: because we set c
+                    d.count()   //=> 1: d was not reset
+
+                /*Combine this closure with property getters and setters*/
+                    function counter(n) { //function argument n is the private variable
+                        return {
+                            get count() {return n++;}, //Property getter method returns and increments private counter var
+                            set count(m) { //Property setter doesn't allow the value of n to derease
+                                if(m>n){
+                                    n=m;
+                                }
+                                else{
+                                    throw Error("count can only be set to a larger value")
+                                }
+                            },
+                        };
+                    }
+                    let e = counter(1000);
+                    e.count() //=> 1000
+                    e.count() //=> 1001
+                    e.count = 2000 //=> 2000
+                    e.count //=> 2000
+                    e.count = 2000 //=>!Error: count can only be set to a larger value
+                    
+/////////////////////////////////////////////////////////////////////    
+
+            /*Private property accessor methods using closures*/
+                function addPrivateProperty(o, name, predicate) {
+
+                    let value ; //This is the property value
+
+                    //The getter method simply returns the value
+                    //o["string"]:property in square bracket must be string type, sp we have to put ``in it.
+                    o[`get${name}`] = function(){return value};
+
+                    //The setter method stores the value or throws an exception if the predicate rejects the value
+                    o[`set${name}`] = function(v) {
+                        if (predicate && !predicate(v)) {
+                            throw new TypeError(`set${name}:invalid value ${v}`)
+                        }
+                        else {
+                            value = v
+                        }
+                    };
+                }
+                //The following code demonstrates the addPrivateProperty() method
+                let o2 = {};
+                //Add property accessor methods getName and setName
+                addPrivateProperty(o2,"Name", x => typeof x === "string");
+                o2.setName("Frank");
+                o2.getName() //=> Frank
+                o2.setName(0); //!TypeError: try to set a value of the wrong type
+///////////////////////////////////////////////////////////////////////
+            
+            /*This function return a function that always return v*/
+            function constfunc(v){
+                return  ()=> v;
+            }
+                //Create an array of constant function
+                let funcs = [];
+                for(var k = 0; k<10; k++) {
+                    funcs[k] = constfunc(k); //Function constfunc is assigned to funcs[i], so funcs[i] also become a function which need to be invoked like funcs[i]()
+                }
+                //The function at array element 5 returns the value 5
+                    funcs[5]() = 5
+
+            /*Important! If we want to use "this" in function, we have to use arrow function instead*/
+                /*Furthe more, we can assign "this" into a variable like "self" to use it in nested function*/
+
+/////////////////////////////////////////////////////////////////////
     </script>
 </body>
 </html>

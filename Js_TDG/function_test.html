@@ -26,6 +26,18 @@
             }
             let s1 = checkscope1()()
             console.log(s1);
+
+        /**/
+        function f(y) {return this.x + y}//This function need to be bound
+            let o = {x:1}; //An object we'll bind top
+            let g = f.bind(o);
+            console.log(g);
+            g(2) //=> 3
+            let p = {x:10,g} //Invoke g() as a method of this object
+
+            p.g(2) //=> 3: g is still bound to o, not p
+
+            
     </script>
 </body>
 </html>

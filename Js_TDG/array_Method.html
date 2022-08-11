@@ -27,7 +27,7 @@
                             })
                             console.log(data); //[2,3,4,5,6]
 
-                /*map() (pass each element of the array and return an array containing the values returned by your function)*/
+                /*map(function) (pass each element of the array and return an array containing the values returned by your function)*/
                     let a = [1,2,3];
                     a.map((element)=> {
                         return element*element;
@@ -59,7 +59,7 @@
                         f.some(x => x%2 === 0); // => true:becaure some of them are match
                         f.some(isNaN); // => false
 
-                /*reduce() & reduceRight()*/    // the second argument is initial value
+                /*reduce(function) & reduceRight()*/    // the second argument is initial value
                     /*reduce()*/
                         let g = [1,2,3,4,5];
                         g.reduce((x,y) => x+y, 0); // => 15; the sum of the value
