@@ -30,14 +30,20 @@
         /**/
         function f(y) {return this.x + y}//This function need to be bound
             let o = {x:1}; //An object we'll bind top
-            let g = f.bind(o);
+            let g = f.bind(o); //g also become a function
             console.log(g);
             g(2) //=> 3
             let p = {x:10,g} //Invoke g() as a method of this object
 
             p.g(2) //=> 3: g is still bound to o, not p
 
-            
+        /**/
+        let increment = (x)=> x+1;
+        let data3 = [1,2,3,4,5];
+        let result = data3.map(increment);
+        console.log(result);
+
+
     </script>
 </body>
 </html>

@@ -295,7 +295,7 @@
                     let value ; //This is the property value
 
                     //The getter method simply returns the value
-                    //o["string"]:property in square bracket must be string type, sp we have to put ``in it.
+                    //o["string"]:property in square bracket must be string type, sp we have to put ``on it.
                     o[`get${name}`] = function(){return value};
 
                     //The setter method stores the value or throws an exception if the predicate rejects the value
