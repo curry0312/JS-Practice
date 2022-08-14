@@ -37,10 +37,41 @@
                 r.toString() //=> "(1,3)"
 
 /////////////////////////////////////////////////////////////////
+        
+        /*Classes and Constructors*/ 
+            //This doesn't create or return an object. It just initialize "this."
+                function Range(from, to) { //When using constructor, we have to use capital letters
+                    this.from = from;
+                    this.to = to;
+                }
+            //All Range objects inherit from this object
+                Range.prototype = { //Note that the property name must be "prototype" to work
 
+                    includes(x) { //Return true if x is in the range, false otherwise
+                        return this.from <= x && x <= this.to;
+                    },
 
+                    [Symbol.iterator]:function*() {
+                        for (let x = Math.ceil(this.from);x <= this.to; x++) {
+                            yield x;
+                        }
+                    },
 
+                    toString() { //Return a string representation of the range
+                        return "(" + this.from + "..." + this.to + ")";
+                    }
+                }
+            // Here are some example uses of new Range class
+                let k = new Range(1,3);
+                k.includes(2)
+                k.toString()
+//////////////////////////////////////////////////////////////////    
 
+        /*If we want to test if a object is a membership of a class*/
+            o instanceof C //=> true/false
+            [prototype].isPrototypeOf(o)
+
+        
     </script>
 </body>
 </html>
