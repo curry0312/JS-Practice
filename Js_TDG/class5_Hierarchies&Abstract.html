@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Set.js: a hierarchy of abstract and concrete set classes*/ //p.244
+            //主管吩咐第一指令,裡面有員工"可使用的方法"
+            class AbstractSet {
+                has(x) { //自己創
+                    //Throw an error here so that subclasses are forced to define their own
+                    //working version of this method
+                    throw new Error("Abstract method")
+                }
+            }
+
+            //NotSet is a concrete subclass of AbstractSet
+            //員工根據指定方法建立模板1
+            class NotSet extends AbstractSet {
+                constructor(set){
+                    super();// We must do it before setting "this.",傳回給上司認可的概念
+                    this.set = set;
+                }
+                has(x) {
+                    return this.set.has(x)
+                }
+                toString() { //Default setting
+                    return `{x|x ${this.set.toString()}}`;
+                }
+            }
+
+            //Range set is a concrete subclass of AbstractSet
+            //員工根據指定方法建立模板2
+            class RangeSet extends AbstractSet {
+                constructor(from, to){
+                    super();
+                    this.from = from;
+                    this.to = to;
+                }
+                has(x) {
+                    return x >= this.from && x<= this.to;
+                }
+                toString() {
+                    return `{x| ${this.from} <= x <= ${this.to}}`;
+                }
+            }
+
+            //AbstractEnumerableSet is an abstract subclass of AbstractSet.
+
+            //It defined an abstract getter that returns the size of the set 
+            //and also defines an abstract iterator
+
+            //Subclasses that implement the iterator, the size getter, 
+            //and the has() method get these concrete methods for free
+            //主管根據第一指令"追加"可使用的方法,員工可使用更多方法建立模板
+            class AbstractEnumerableset extends AbstractSet {
+                get size() { //自己創
+                    throw new Error("Abstract method");
+                }
+                [Symbol.iterator]() { //自己創
+                    throw new Error("Abstract method")
+                }
+
+                isEmpty() {
+                    return this.size === 0;
+                }
+                toString() {
+                    return `{${Array.from(this.join(","))}}`
+                }
+                equals(set) {
+                    //If the other set is not also Enumerable, it isn't equal to this one
+                    if(!(set instanceof AbstractEnumerableset)) {
+                        return false;
+                    }
+                    if(this.size !== set.size) {
+                        return false;
+                    }
+                    for(let element of this) {
+                        if(!set.has(element)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+
+            //SingletonSet is a concrete subclass of AbstractEnumerableSet
+            //員工根據"更多"的指定方法建立模板3
+            class SingletonSet extends AbstractEnumerableSet {
+                constructor(member) {
+                    super()
+                    this.member = member;
+                }
+                has(x){
+                    return (x === this.member);
+                }
+                get size() {
+                    return 1;
+                }
+                *[Symbol.iterator]() {
+                    yield this.member;
+                }
+            }
+
+            //AbstractWritableSet is an abstract subclass of AbstractEnumerableSet
+            //主管根據第二指令繼續"增加"可使用方法,員工可使用更多方法去建立模板
+            class AbstractWritableSet extends AbstractEnumerableset {
+                insert(x) { //自己創
+                    throw new Error("Abstract method")
+                }
+                remove(x) { //自己創
+                    throw new Error("Abstract method")
+                }
+
+                add(set) {
+                    for(let element of set) {
+                        this.insert(element);
+                    }
+                }
+
+                substract(set) {
+                    for(let element of set) {
+                        this.remove(element);
+                    }
+                }
+                intersect(set) {
+                    for(let element of this) {
+                        if(!set.has(element)) {
+                            this.remove(element);
+                        }
+                    }
+                }
+ 
+            }
+    </script>
+</body>
+</html>

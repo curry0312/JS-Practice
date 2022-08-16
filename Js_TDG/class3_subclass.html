@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Subclasses with extends and super*/
+            class EZArray/*subclass*/ extends Array/*superclass*/ {
+                get first() {
+                    return this[0];
+                }
+                get last() {
+                    return this[this.length - 1];
+                }
+            }
+                let a = new EZArray();
+                a instanceof EZArray //=> true: a is subclass instance
+                a instanceof Array //=>true: a is also a superclass instance
+                a.push(1,2,3,4); //=> a.length == 4; we can use inherited method
+                a.pop() //=>4
+                a.first; //=> 1
+                a.last; //=> 3
+                a[1]; //=> 2
+                Array.isArray(a); //=> true: subclass instance really is an array
+                EZArray.isArray(a); //=> true: subclass inherits static methods, too.
+
+                Array.prototype.isPrototypeOf(EZArray.prototype) //=> true
+
+////////////////////////////////////////////////////////////////////////////
+
+        /*TypeMap.js: a subclass of Map that checks key and value types*/
+            class TypeMap extends Map {
+                constructor(keyType, valueType, entries) {
+                    //If entries are specified, check their types
+                    if(entries) {
+                        for(let [k,v] of entries) {
+                            if(typeof k !== keyType || typeof v !== valueType) {
+                                throw new TypeError(`Wrong type for entry[${k},${v}]`)
+                            }
+                        }
+                    }
+                    //Initialize the superclass with the (type-checked) initial entries
+                    //It must be used when we define a class with "extends" keyword
+                    //Super class do first, and then subclass do
+                        super(entries);
+
+                    //And then initialize this subclass bt storing the types
+                        this.keyType = keyType;
+                        this.valueType = valueType;
+                }
+
+                //Check new pairs type
+                //Superclass set new pairs into the map, subclass just do the check mission
+                //Now redefine the set() method to add type checking for any new entries added to the map
+                    set(key, value) {
+                        if(this.keyType/*Check if the type is exist*/ && typeof key !== this.keyType){
+                            throw new TypeError(`${key} is not of type ${this.keyType}`)
+                        }
+                        if(this.value && typeof value !== this.valueType) {
+                            throw new TypeError(`${value} is not of type ${this.value}`)
+                        }
+                        //
+                        return super.set(key, value);
+                    }
+
+            }
+    </script>
+</body>
+</html>

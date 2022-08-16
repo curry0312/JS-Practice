@@ -15,7 +15,7 @@
             /*It allows you to indirectly invoke a function as if it were a method of some object*/
             /*The first argument is the object on which the function is to be invoked*/
                 /*The first argument o become the value of the "this"*/
-                    f.call(o); //=> Take the method f which is in o object
+                    f.call(o);
                     f.apply(o);
                 /*Which is similar like this(suppose we don't have a property name "m")*/
                     o.m = f // Make f a temporary method of o

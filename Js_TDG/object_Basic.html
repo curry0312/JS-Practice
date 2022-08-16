@@ -131,7 +131,7 @@
             let o9 = {x:1};
             o9.propertyIsEnumerable("tostring")
             for(let i in o9) {
-                console.log(i);// Print x,y and z, but not tostring because it's method.
+                console.log(i);// Print x,y and z, but not toString because it's method.
             }
 
             //We don't want to get inherited properties
@@ -141,7 +141,7 @@
                 }
             }
             for(let p in o9) {
-                if(typeof o[p] === 'function'){ //Skip all method
+                if(typeof o9[p] === 'function'){ //Skip all method
                     continue; 
                 }
             }

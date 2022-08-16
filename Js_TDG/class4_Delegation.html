@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Histogram {
+            constructor() {
+                this.map = new Map(); //Create a new Map assigned to "this.map"
+            }
+
+            //For any given key, the count is the value in the Map, 
+            //or zero if the key doesn't appear in the map
+            count(key) {
+                return this.map.get(key) || 0;
+            }
+            //The set-like method has() return true if the count is non-zero
+            has(key) {
+                return this.count(key) > 0;
+            }
+            //The size of the histogram is just the number of entries in the Map
+            get size() {
+                return this.map.size;
+            }
+            //To add a key, just increment its count in the Map
+            add(key) {
+                this.map.set(key, this.count(key)+1);
+            }
+            //Deleting a key is a little trickier because we have to delete the key from the Map
+            //if the count goes back down to zero
+            delete(key) {
+                let count = this.count(key);
+                if(count === 1) {
+                    this.map.delete(key)
+                }
+                else if(count > 0) {
+                    this.map.set(key, count - 1)
+                }
+            }
+
+            //Iterating a Histogram just returns the keys stored in it
+            [Symbol.iterator]() {
+                return this.map.keys();
+            }
+
+            //These other iterator methods just delegate to the Map object
+            keys(){
+                return this.map.keys();
+            }
+            values(){
+                return this.map.values();
+            }
+            entries() {
+                return this.map.entries();
+            }
+        }
+    </script>
+</body>
+</html>
