@@ -68,7 +68,7 @@
                 isEmpty() {
                     return this.size === 0;
                 }
-                toString() {
+                toString() { //Default
                     return `{${Array.from(this.join(","))}}`
                 }
                 equals(set) {
@@ -89,7 +89,7 @@
             }
 
             //SingletonSet is a concrete subclass of AbstractEnumerableSet
-            //員工根據"更多"的指定方法建立模板3
+            //員工根據更多的指定方法建立模板3
             class SingletonSet extends AbstractEnumerableSet {
                 constructor(member) {
                     super()
@@ -135,6 +135,20 @@
                     }
                 }
  
+            }
+
+            //A BitSet is a concrete subclass of AbstractWritableSet with a very efficient
+            //fixed-size set implementation for sets whose elements are non-negative integers
+            //less than some maximum size
+            //員工根據主管追加的方法建議模板4
+            class BitSet extends AbstractWritableSet{
+                constructor(max) {
+                    super();
+                    this.max = max;
+                    this.n = 0;
+                    this.numBytes = Math.floor(max/8) + 1;
+                    this.data = new Uint8Array(this.numBytes);
+                }
             }
     </script>
 </body>

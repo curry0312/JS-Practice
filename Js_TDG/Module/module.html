@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Define a module*/
+            const stats = (function(){
+                //Utility functions private to the module
+                const sum = (x,y)=> x+y;
+                const square = (x)=> x*x
+
+                function mean(data) {
+                    return data.reduce(sum) / data.length;
+                }
+
+                function stddev(data) {
+                    let m = mean(data);
+                    return Math.sqrt(
+                        data.map(x=> x - m).map(square).reduce(sum) / (data.length - 1)
+                    )
+                }
+                //We export the public function as properties of an object
+                return {mean,stddev};
+            });
+            //And here is how we might use the module
+            console.log(stats().mean([1,3,5,7,9])) //=>5
+            console.log(stats().stddev([1,3,5,7,9])) //=> Math.sqrt(10)
+
+//////////////////////////////////////////////////////////////////////////
+
+        /*Transform a file of javascript code into module*/
+            const modules = {}; //modules is an main object now
+
+            function require(moduleName){
+                return modules[moduleName];
+            }
+
+            modules["sets1.js"] = (function(){ //modules property named "sets.js" have a function value
+                const exports = {}; //exports is an new empty object now
+                //The contents of the set.js file go here
+                exports.BitSet = function(args){
+                    return args+100;
+                };
+                exports.ByteSet = class ByteSet{/*omited*/}
+                return exports;
+            }());
+
+            modules["stats1.js"] = (function(){
+                const exports = {};
+                //The contents of the stats.js file go here
+                const sum = (x,y)=> x+y;
+                const square = x=> x*x;
+                exports.mean = function(data){};
+                exports.stddev = function(data){};
+                return exports;
+            }())
+            console.log(modules);
+
+
+            /*We can use them like this way*/
+                //Get reference to the modules(or the module content) that we need
+                const stats1 = require("stats1.js");
+                const BitSet1 = require("sets1.js").BitSet; //Take the content we need
+
+                //Now write ode using those modules
+                let s = BitSet1(100);
+                console.log(s);
+
+//////////////////////////////////////////////////////////////////////////////
+
+        /**/
+    </script>
+</body>
+</html>
