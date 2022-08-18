@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Event Definition*/
+            /*event type ()*/
+                // "mousemove" "keydown" "load"
+            /*event target (處理目標)*/
+                //A load event on a Window
+                //A click event on a <button> Element
+            /*event handler || event listener (處理事件者)*/
+                //The browser has "fired" "dispatched" the event
+            /*event object (處理事件者處理資料的來源)*/
+                //It takes details about the specified event
+                //Every event object have "type" and "target" property
+            /*event propagation (處理事件者的處理過程）*/
+                // Which object to trigger event handlers on
+
+        /*Event Categories*/
+            /*Device-dependent input events*/
+                // "mousedown" "mousemove" "mouseup" "touchstart" "touchmove" "touchend" "keydown" "keyup"
+            /*Device-independent input events*/
+                // "click"
+            /*User iterface events*/
+                // "focus" "change" "submit"
+            /*state-chanfe events*/
+                // "DOMContentLoaded" "load" at the end of the document loading
+                // More Example: "online" "offline"
+            /*API-specific events*/
+                // <video> <audio> "waiting" "playing"
+
+//////////////////////////////////////////////////////////////
+        /*Registering Event Handlers*/
+            /*Old: setting event handler properties*/
+                //Set the onload property of the Window object to a function
+                //This function is the event handler:it is invoked when the document loads.
+                window.onload = function(){
+                    //Look up a <form> element
+                    let form = document.querySelector("form#shipping");
+                    //Register an event handler function on the form that will be invoked
+                    //before the form is submitted. Assume isFormValid() is defined elsewhere
+                    form.onsubmit = function(event){ //When the user sumbit the form
+                        if(!isFormValid(this)){ //Check whether form inputs are valid
+                            event.preventDefault(); //and if not, prevent from submission
+                        }
+                    };
+                };
+
+        /*addEventLister()*/
+            
+    </script>
+</body>
+</html>
