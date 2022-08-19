@@ -8,10 +8,11 @@
 </head>
 <body>
     <script>
+        /*Every document tag has its own class*/
         /*Event Definition*/
-            /*event type ()*/
+            /*event type (事件種類)*/
                 // "mousemove" "keydown" "load"
-            /*event target (處理目標)*/
+            /*event target (事件目標)*/
                 //A load event on a Window
                 //A click event on a <button> Element
             /*event handler || event listener (處理事件者)*/
@@ -29,7 +30,7 @@
                 // "click"
             /*User iterface events*/
                 // "focus" "change" "submit"
-            /*state-chanfe events*/
+            /*state-change events*/
                 // "DOMContentLoaded" "load" at the end of the document loading
                 // More Example: "online" "offline"
             /*API-specific events*/
@@ -52,8 +53,115 @@
                     };
                 };
 
-        /*addEventLister()*/
-            
+        /*addEventListener()*/
+            //addEventListener(event type, function, boolean value)
+            let b = document.createElement("button");
+            b.onclick = function() {
+                console.log("Thanks for clicking me")
+            }
+            b.addEventListener("click", ()=>{
+                console.log("Thanks for clicking me")
+            })
+            //removeEventListener(event type, function, boolean value)
+            removeEventListener("mousemove", handleMouseMove);
+            removeEventListener("mouseup", handleMouseup);
+            //Third argument
+            document.addEventListener("click", handleclick, {
+                capture:true,
+                once:true,
+                passive:true //never call preventDefault() to cancel default action
+            })
+/////////////////////////////////////////////////////////////////////////////
+        /*Event handler invocation*/
+
+            /*Event handler argument*/
+            // type: The type of the event that occurred
+            // target: The object on which the event occurred
+            // currentTarget
+            // timeStamp: Set an elapsed time
+            // isTrusted: True if the event was dispatch by web browser
+
+            /*Event handler context*/
+                //Register an event handler by setting a property
+                target.onclick = function(){
+                    /*handler code*/
+                };
+            /*Handler return value*/
+                //We should never return a value
+
+            /*Event propagation*/
+                //It bubble up the DOM tree
+                //capture:true => bubble up in reverse
+
+            /*Event Cancellation*/
+                //Preventing default action by invoking the preventDefault() method when browser respond to user events
+                preventDefault()
+                stopPropagation()
+                stopimmediatePropagation()
+
+            /*Dispatching Custom Event*/
+                //Create own event object with the CustomEvent() constructor and pass it to dispatchEvent()
+                    //Dispatch a custom event so the UI knows we are busy
+                    document.dispatchEvent(new CustomEvent("busy", {detail: true}));//創造一個客制event並且派送至document
+                    //Perform a network operation
+                    fetch(url)
+                        .then(handleNetworkResponse)
+                        .catch(handleNetworkError)
+                        .finally(()=>{
+                            //After the network request has succeeded or failed,
+                            //dispatch another event to let the UI know that we are no
+                            //longer busy
+                            document.dispatchEvent(new CustomEvent("busy", {detail: false}))
+                        })
+                    //Elsewhere, in your program you can register a handler for "busy" events
+                    //and use it ti show or hide the spinner to let the user know
+                    document.addEventListener("busy", (e)=>{
+                        if(e.detail){
+                            showSpinner();
+                        }
+                        else {
+                            hideSpinner();
+                        }
+                    })
+////////////////////////////////////////////////////////////////////
+        /*Scripting Documents*/
+            /*Selecting Document Element*/
+                // div #nav .warning
+                // p[lang = "fr"] => A paragraph written in French: <p lang="fr">
+                // *[name = "x"] => Any element with a name="x" attribute
+                // span.fatal.error => Ant <span> with "fatal" and "error" in its class
+                // #log span => Any <span> descendant of the element with id="log"
+                // #log > span => Any <span> child of the element with id="log"
+                // body > h1:first-child => The first <h1> child of the body
+                // img + p.caption => A <p> with class "caption" immediately after an <img>
+                // h2 ~ p => Any <p> that follows an <h2> and is a sibling of it
+                // button, input[type="button"] => select all button and input[type="button"]
+
+            /*querySelector()*/
+                //Try to catch the element with id="spinner"
+                let spinner = document.querySelector("#spinner")
+            /*querySelectorAll()*/
+                //Try to find all element object for <h1> <h2> <h3>
+                let titles = documemt.querySelectorAll("h1, h2, h3");
+                //Warning: return an array-like object known as a NodeList
+                //It can be looped with for/of or be converted to an array using Array.from()
+
+            /*closet() The oppsite of querySelector()*/
+                //Find the closest enclosing <a> tag that has an href attribute
+                    let hyperlink = event.target.closest("a[href]");
+                //Return true if element e is inside of an HTML list element
+                    function insideList(e){
+                        return e.closest("ul, ol, dl") !== null;
+                    }
+                //Return true if e is an HTML heading element
+                    function isHeading(e){
+                        return e.matches("h1, h2, h3, h4, h5, h6"); //matches()
+                    }
+            /*Other element selection*/
+                document.getElementById("sect1"); //Most use
+                document.getElementsByName("color"); //Use in foem checkbox
+                document.getElementsByClassName("btn"); //Find all elements with class "btn"
+                document.getElementsByTagName("h2"); //Find all h2 tag
     </script>
 </body>
 </html>
