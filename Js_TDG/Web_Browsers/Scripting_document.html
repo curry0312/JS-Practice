@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Scripting Documents*/
+            /*Selecting Document Element*/
+                // div #nav .warning
+                // p[lang = "fr"] => A paragraph written in French: <p lang="fr">
+                // *[name = "x"] => Any element with a name="x" attribute
+                // span.fatal.error => Ant <span> with "fatal" and "error" in its class
+                // #log span => Any <span> descendant of the element with id="log"
+                // #log > span => Any <span> child of the element with id="log"
+                // body > h1:first-child => The first <h1> child of the body
+                // img + p.caption => A <p> with class "caption" immediately after an <img>
+                // h2 ~ p => Any <p> that follows an <h2> and is a sibling of it
+                // button, input[type="button"] => select all button and input[type="button"]
+
+            /*querySelector()*/
+                //Try to catch the element with id="spinner"
+                let spinner = document.querySelector("#spinner")
+            /*querySelectorAll()*/
+                //Try to find all element object for <h1> <h2> <h3>
+                let titles = documemt.querySelectorAll("h1, h2, h3");
+                //Warning: return an array-like object known as a NodeList
+                //It can be looped with for/of or be converted to an array using Array.from()
+
+            /*closet() The oppsite of querySelector()*/
+                //Find the closest enclosing <a> tag that has an href attribute
+                    let hyperlink = event.target.closest("a[href]");
+                //Return true if element e is inside of an HTML list element
+                    function insideList(e){
+                        return e.closest("ul, ol, dl") !== null;
+                    }
+                //Return true if e is an HTML heading element
+                    function isHeading(e){
+                        return e.matches("h1, h2, h3, h4, h5, h6"); //matches()
+                    }
+            /*Other element selection*/
+                document.getElementById("sect1"); //Most use
+                document.getElementsByName("color"); //Use in form checkbox
+                document.getElementsByClassName("btn"); //Find all elements with class "btn"
+                document.getElementsByTagName("h2"); //Find all h2 tag
+
+////////////////////////////////////////////////////////////////////////
+
+        /*Children element without Text*/
+            //Property: .children .firstElementChild .lastElementChild
+                document.children[0].children[1]
+                document.firstElementChild.firstElementChild.nextElementSibling
+            /*Recursively traverse the Document or Element e,
+            invoking the function f on e on each of its descendants*/
+            function traverse(element,f) {
+                f(element);
+                for(let child of element) {
+                    traverse(child, f);
+                }
+            }
+        /*Children element with Text*/
+            //.childNodes .firstChild .nextSilbling
+            document.childNodes[0].childNodes[1]
+            document.firstChild.firstChild.nextSibling
+
+/////////////////////////////////////////////////////////////////////
+        /*Attribute*/
+            /*Methods of querying or setting attribute*/
+                .getAttribute()
+                .setAttribute()
+                .hasAttribute()
+                .removeAttribute()
+            /*HTML attribute as element properties*/
+                let image = document.querySelector("#main_image");
+                let url = image.src;
+                image.id = "main_image"
+            /*Set the form-submission attribute*/
+                let f = document.querySelector("form");
+                f.action = "#";
+                f.method = "POST";
+            /*Class attribute*/
+                //Make the spinner display, we try to remove the "hidden" class and add "animated"
+                let spinner1 = document.querySelector("#spinner")
+                spinner.classList.remove("hidden");
+                spinner.classList.add("animated");
+            /*Dataset attribute*/
+                //dataset property refer to the "data-" attribute
+                //<h2 id="title" data-section-number="16.1">Attribute<h2>
+                //let number = document.querySelector("h2").dataset.sectionNumber
+
+/////////////////////////////////////////////////////////////////////
+        
+        /*Element Content*/
+            /*Element content as plain text*/
+                //Use ".textContent" instead of ".innerText"
+                let para = document.querySelector("p");
+                para.textContent = "Hello";
+
+/////////////////////////////////////////////////////////////////////
+
+        /*Creating, Inserting, and Deleting Nodes*/
+            /*CreateElement() append()*/
+                let paragraph = document.createElement("p");
+                let emphasis = document.createElement("em");
+                emphasis.append("World");
+                paragraph.append("Hello", emphasis, "!")
+                paragraph.prepend("i");
+                paragraph.innerHTML; //=>"iHello <em>World<em>!"
+
+            /*Inserting an Element or Text node*/
+                //Find the heading element with class="gretting"
+                let greeting = document.querySelector("h2.grettings");
+                //Now insert new paragraph and hr after the heading above
+                greeting.after(paragraph, documemt.createElement("hr"))
+
+            /*Cope .cloneNode(boolean)*/
+                greeting.after(paragraph.cloneNode(true));
+
+            /*remove() replaceWith(argument)*/
+    </script>
+</body>
+</html>

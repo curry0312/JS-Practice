@@ -124,44 +124,10 @@
                         }
                     })
 ////////////////////////////////////////////////////////////////////
-        /*Scripting Documents*/
-            /*Selecting Document Element*/
-                // div #nav .warning
-                // p[lang = "fr"] => A paragraph written in French: <p lang="fr">
-                // *[name = "x"] => Any element with a name="x" attribute
-                // span.fatal.error => Ant <span> with "fatal" and "error" in its class
-                // #log span => Any <span> descendant of the element with id="log"
-                // #log > span => Any <span> child of the element with id="log"
-                // body > h1:first-child => The first <h1> child of the body
-                // img + p.caption => A <p> with class "caption" immediately after an <img>
-                // h2 ~ p => Any <p> that follows an <h2> and is a sibling of it
-                // button, input[type="button"] => select all button and input[type="button"]
+        
 
-            /*querySelector()*/
-                //Try to catch the element with id="spinner"
-                let spinner = document.querySelector("#spinner")
-            /*querySelectorAll()*/
-                //Try to find all element object for <h1> <h2> <h3>
-                let titles = documemt.querySelectorAll("h1, h2, h3");
-                //Warning: return an array-like object known as a NodeList
-                //It can be looped with for/of or be converted to an array using Array.from()
 
-            /*closet() The oppsite of querySelector()*/
-                //Find the closest enclosing <a> tag that has an href attribute
-                    let hyperlink = event.target.closest("a[href]");
-                //Return true if element e is inside of an HTML list element
-                    function insideList(e){
-                        return e.closest("ul, ol, dl") !== null;
-                    }
-                //Return true if e is an HTML heading element
-                    function isHeading(e){
-                        return e.matches("h1, h2, h3, h4, h5, h6"); //matches()
-                    }
-            /*Other element selection*/
-                document.getElementById("sect1"); //Most use
-                document.getElementsByName("color"); //Use in foem checkbox
-                document.getElementsByClassName("btn"); //Find all elements with class "btn"
-                document.getElementsByTagName("h2"); //Find all h2 tag
+
     </script>
 </body>
 </html>
