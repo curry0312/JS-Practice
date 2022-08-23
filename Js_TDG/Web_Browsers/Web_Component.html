@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Import Web components*/
+            //<script type = "module" src = "components/search-box.js">
+
+        /*Use a web component*/
+            //<search-box placeholder = "Search..."></search-box>
+
+        /*Some web components support "slot"*/
+            //<search-box>
+            //  <img src = "images/search-icon.png" slot = "left">
+            //  <img src = "omages/cancel-icon.png" slot = "right">
+            //</search-box>
+        /*search-box:not(:defined)*/
+            // We can hide the element untill they are defined
+            //{
+            //  opacity:0;
+            //  display:inline-block;
+            //  width:300px;
+            //  height:50px;
+            //}
+ /////////////////////////////////////////////////////////////////
+
+        /*template*/
+        //DocumentFragmnet: a virtual document.
+        //template.content.cloneNode(true) (DocumentFragment): 模板，他不是DOM tree的一環，類似DocumentFragment
+            //template id="row"></template>
+            let tableBody = document.querySelector("tbody");
+            let template = document.querySelector("#row");
+            let template_content = template.content.cloneNode(true);
+            tableBody.append(template_content);
+
+///////////////////////////////////////////////////////////////////
+
+        /*Custom Element*/
+            /*customElements.define()*/
+            //connectedCallback() invokes when a instance of the element is inserted into the document
+            //disconnectedCallback() invokes when it is removed (less often use)
+            //observedAttributes property is defined whose value is an array of the custom element
+            //attributeChangedCallback() invokes when any named attributes are set
+
+        /*The <inline-circle> custom element*/
+            customElements.define("inline-circle", class InlineCircle extends HTMLElement{
+                connectedCallback() {
+                    //set the styles needed to create circle
+                    this.style.display = "inline-block";
+                    this.style.borderRadius = "50%";
+                    this.style.border = "solid 1px black";
+                    this.style.transform = "translateY(10%)";
+                    if(!this.style.width){
+                        this.style.width = "0.8em"
+                        this.style.height = "0.8em"
+                    }
+                }
+                static get observedAttribute() { //需不需要呼叫instance來完成(例如：instance.observedAttribute())，如果不需要或沒必要，用static(直接呼叫class來發動)即可
+                    return ["diameter", "color"];
+                }
+
+                attributeChangedCallback(name, oldValue, newValue) {
+                    switch(name){
+                        case "diameter":
+                            //If the diameter attribute changes, update the size style
+                            this.style.width = newValue;
+                            this.style.height = newValue;
+                            break;
+                        case "color":
+                            //If the color attribute changes, update the color style
+                            this.style.backgroundColor = "newValue";
+                            break;
+                    }
+                }
+                //Define Javascript properties that correspond to the element's attribite.
+                //These getters and setters just get and set the underlying attributes.
+                //If a Javascript property is set, that sets the attribute which
+                //triggers a call to attributeChangeCallback() which updates the element style
+                get diameter() { return this.getAttribute("diameter");}
+                set diameter(diameter) {this.setAttribute("diameter", diameter);}
+                get color() {return this.getAttribute("color");}
+                set color(color) {this.setAttribute("color", color);}
+            })
+    </script>
+</body>
+</html>

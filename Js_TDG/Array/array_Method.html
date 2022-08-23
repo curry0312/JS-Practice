@@ -93,16 +93,16 @@
                 /*concat()*/
                     /*Create and return a new array that contains the elements of the original array on which concat() was invoked*/
                         let j = [1,2,3];
-                        a.concat(4,5); // => [1,2,3,4,5]
-                        a.concat([4,5],[6,7]) // => [1,2,3,4,5,6,7]
-                        a.concat(4,[5,[6,7]]) // => [1,2,3,4,5,[6,7]]
+                        j.concat(4,5); // => [1,2,3,4,5]
+                        j.concat([4,5],[6,7]) // => [1,2,3,4,5,6,7]
+                        j.concat(4,[5,[6,7]]) // => [1,2,3,4,5,[6,7]]
 
 //////////////////////////////////////////////////////////////////
 
                 /*push() pop() shift() unshift()*/
 
                 /*slice() splice() fill() copyWithin()*/
-                    /*slice(start, end), it doesn't modify the arrayon which it is invoked*/
+                    /*slice(start, end), it doesn't modify the array on which it is invoked*/
                         let k = [1,2,3,4,5];
                         k.slice(0,3); // => [1,2,3], end not including
                         k.slice(3); // => [4,5], which ignore the end argument

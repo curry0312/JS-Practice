@@ -30,7 +30,7 @@
                 //Warning: return an array-like object known as a NodeList
                 //It can be looped with for/of or be converted to an array using Array.from()
 
-            /*closet() The oppsite of querySelector()*/
+            /*closest() The oppsite of querySelector()*/
                 //Find the closest enclosing <a> tag that has an href attribute
                     let hyperlink = event.target.closest("a[href]");
                 //Return true if element e is inside of an HTML list element
@@ -102,7 +102,8 @@
 /////////////////////////////////////////////////////////////////////
 
         /*Creating, Inserting, and Deleting Nodes*/
-            /*CreateElement() append()*/
+            /*CreateElement() append() prepend()*/
+            //append():Node & DOMString ; appendchild():Node only
                 let paragraph = document.createElement("p");
                 let emphasis = document.createElement("em");
                 emphasis.append("World");
@@ -112,14 +113,122 @@
 
             /*Inserting an Element or Text node*/
                 //Find the heading element with class="gretting"
-                let greeting = document.querySelector("h2.grettings");
+                let greeting = document.querySelector("h2.greetings");
                 //Now insert new paragraph and hr after the heading above
                 greeting.after(paragraph, documemt.createElement("hr"))
 
-            /*Cope .cloneNode(boolean)*/
+            /*Copy .cloneNode(boolean)*/
                 greeting.after(paragraph.cloneNode(true));
 
             /*remove() replaceWith(argument)*/
-    </script>
+                greeting.remove();
+                greeting.replaceWith(paragraph);
+
+/////////////////////////////////////////////////////////////////////
+
+        /*Generating a Table of content*/
+        // charAt():return the charactor at the specified index
+        // parseInt(): return value will be Int number
+
+            //First find id="TOC" element. If there's isn't one, 
+            //create one at the top if the body
+            document.addEventListener("DOMContentLoaded",()=>{
+                let toc = document.querySelector("#TOC");
+                if (!toc) {
+                    let TOC = document.createElement("div");
+                    toc.id = "TOC"
+                    document.body.prepend(toc);
+                }
+
+                    //result => <body>
+                    //              <div id="TOC"></div>
+                    //          </body>
+
+                //Find all section heading elements
+                let headings = document.querySelectorAll("h2, h3, h4, h5, h6");
+
+                //Initialize an array that keeps track of section numbers
+                let sectionNumbers = [0,0,0,0,0];
+
+                for(let heading of headings){
+                    //Skip the heading if it is inside the TOC container
+                    if(heading.parentNode === toc){
+                        continue;
+                    }
+                    //Figure out what level heading it is
+                    //Substract 1 because <h2> is a level-1 heading
+                    let level = parseInt(heading.tagName.charAt(1))-1
+                    //Increment the section number for this heading level
+                    //and reset all lower heading level numbers to zero
+                    sectionNumbers[level-1]++;
+                    for(let i =level; i < sectionNumbers.length; i++){
+                        sectionNumbers[i] = 0;
+                    }
+                    //Now combine section numbers for all heading levels
+                    //to produce a section number like 2.3.1
+                    let sectionNumber = sectionNumbers.slice(0,level).join(".");
+                    //Add the section number to the section header title
+                    //We place the number in a <span> to make it styleable
+                    let span = document.createElement("span");
+                    span.className = "TOCSectNum";
+                    span.textContent = sectionNumber;
+                    heading.prepend(span);
+
+                        //result => <h2><span class="TOCSectNum">2.3.1</span>我是標題二</h2>
+
+                    //Wrap the heading in a named anchor so we can link to it
+                    let anchor = document.createElement("a");
+                    let fragmentName = `TOC${sectionNumber}`
+                    anchor.name = fragmentName;
+                    heading.before(anchor); //Insert anchor into the document before heading
+                    anchor.append(heading); //And move the heading into anchor
+
+                        //result => <a name="TOC2.3.1">
+                        //              <h2><span class="TOCSectNum">2.3.1</span>我是標題二</h2>
+                        //          </a>
+
+                    //Now create a link to this section
+                    let link = document.createElement("a");
+                    link.href = `#${fragmentName}`; //Link destination
+
+                        //result => <a href="#TOC2.3.1"></a>
+
+                    //Cope the heading text into the link. 
+                    //This is a safe use of innerHTML because we are not inserting
+                    //any untrust string
+                    link.innerHTML = heading.innerHTML;
+
+                        //result => <a href="#TOC2.3.1">
+                        //              <span>2.3.1</span>我是標題二
+                        //          </a>
+
+                    //Place the link in a div that is styleable based on the level.
+                    let entry = document.createElement("div");
+                    entry.classList.add("TOCEntry", `TOCLevel${level}`);
+                    entry.append(link);
+
+                        //result => <div class="TOCEntry", "TOCLevel2.3.1">
+                        //              <a href="#TOC2.3.1">
+                        //                  <span>2.3.1</span>我是標題二
+                        //              </a>  
+                        //          </div>
+
+                    //And add the div to the TOC container
+                    toc.append(entry);
+
+                        //result => <body>
+                        //              <div id="TOC">
+                        //                  <div>
+                        //                      <a href="#TOC2.3.1">
+                        //                          <span><2.3.1/span>我是標題二
+                        //                      </a>
+                        //                  </div>
+                        //              </div>
+                        //          </body>
+
+                }
+            })
+                
+    </script
 </body>
 </html>

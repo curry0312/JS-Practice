@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*CSS Class*/
+            //Assume that this "tooltip element has class="hidden" in the HTML file/
+            //We can make it visible like this
+                ument.querySelector(".tooltip").classList.remove("hidden");
+            //And we can hide it again like this
+                ument.querySelector(".tooltip").classList.add("hidden");
+
+//////////////////////////////////////////////////////////////////////////
+
+        /*Inline Style*/
+            /*style property (CSSStyleDeclaration object)*/
+                function displayAt(tooltip,x,y){
+                    tooltip.style.display = "block";
+                    tooltip.style.position = "absolute";
+                    tooltip.style.left = `${x}`;
+                    tooltip.style.top = `${x}`;
+                    /*Naming convention*/
+                        // border-left-width = borderLeftWidth
+                        //font-family = fontFamily
+                }
+            /*All value must be specified as a string*/
+                e.style.display = "block";
+                e.style.fontFamily = "sans-serif";
+                e.style.backgroundColor = "#ffffff";
+            /*"px" must be added to some properties*/
+                e.style.marginLeft = "300"; // False, "px" is missing
+                e.style.marginLeft = "300px"; // True
+            /*Set css property to computed value*/
+                e.style.Left = `${x0 + left_border + left.padding}px`
+            /*getAttribute("attribute"), setAtteibute("attribute", changed_value)*/
+                /*Copy the inline style of element e to element f*/
+                    f.setAttribute("style", e.getAttribute("style"));//拿取、設定attribute的值
+                /*Or do it like this way*/
+                    f.style.cssText = e.style.cssText;//cssText:style裡的所有CSS字
+
+////////////////////////////////////////////////////////////////////
+        /*Computed Style (Not really useful)*/
+            let title = document.querySelector("#section1title");
+            let styles = window.getComputedStyle(title);
+            let before = window.getComputedStyle(title, "::before");
+////////////////////////////////////////////////////////////////////
+        /*Scripting CSS*/
+            /*<style> <link> tags have disable property*/
+                /*"disable" property*/
+                /*This function switches between the "light" and "dark" theme*/
+                    function toggleTheme(){
+                        let lighttheme = document.querySelector("#light-theme");
+                        let darkTheme = document.querySelector("#dark-theme");
+                        if(darkTheme.disable) {
+                            lighttheme.disable = true; // Current light, switch to dark
+                            darkTheme.disable = false;
+                        }
+                        else {
+                            lighttheme.disable = false;
+                            darkTheme.disable = true;
+                        }
+                    }
+            /*Insert a new ones into the document*/
+                //Create a new <link rel="stylesheet"> element to load the named stylesheet
+                function setTheme(name){
+                    let link = document.createElement("link");
+                    link.id = "theme";
+                    link.rel = "stylesheet";
+                    link.href = `theme/${name}.css`;
+                }
+                //Look for an existing link with id "theme"
+                let currenttheme = document.querySelector("#theme")
+                if(currenttheme) {
+                    currenttheme.replaceWith(link);
+                }
+                else {
+                    document.head.append(link);
+                }
+            /*insertAdjacentHTML("position", html)*/
+                document.head.insertAdjacentHTML(
+                    "beforeend", // "beforebegin" "afterbegin" "afterend"
+                    "<style>body{transform:rotate(180deg)}</style>"
+                )
+            /*CSS Animatiom and Events*/
+                /*Create classes* in a stylesheet*/
+                    //.transparent {opacity:0 ;}
+                    //.fadeout {transition: opacity .5s ease-in}
+                /*We can add or remove it to controll the appearence*/
+                    //document.querySelector("#subscribe").classList.add("transparent")
+                
+                
+///////////////////////////////////////////////////////////////////////////
+    </script>
+ </body>
+</html>

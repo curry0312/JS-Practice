@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Determining the Element at a Point*/
+            /*getBoundingClientRect()*/
+
+            /*elementFromPoint()*/
+
+        /*Scrolling*/
+        /*document.document.Element (the root element of the document)*/
+            /*scrollTo*/
+                //Get the heights of the document and viewport
+                let documentHeight = document.documentElement.offsetHeight;
+                let viewportHeight = window.innerHeight;
+                //And scroll to the last "page" shows in the viewport
+                window.scrollTo(0, documentHeight, viewportHeight);
+                //Add smooth
+                window.scrollTo({
+                    left:0,
+                    top:documentHeight - viewportHeight,
+                    behavior:"smooth",
+                })
+            /*scrollBy*/
+                setInterval(()=>{scrollBy(0,50)},500);
+
+            /*scrollIntoView*/
+
+            /*Size Property*/
+                // offset client scroll (Width / Height/ Left/ Top)
+
+    </script>
+</body>
+</html>
