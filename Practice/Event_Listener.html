@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .grandparent {
+            width: 500px;
+            height: 500px;
+            background: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;;
+        }
+        .parent {
+            width: 300px;
+            height: 300px;
+            background: blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .child {
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="grandparent">
+        <div class="parent">
+            <div class="child"></div>
+        </div>
+    </div>
+
+    <script>
+        let grandparent = document.querySelector(".grandparent");
+        let parent = document.querySelector(".parent");
+        let child = document.querySelector(".child");
+
+        // grandparent.addEventListener('click',()=>{
+        //     console.log("grandparent")
+        // })
+
+        // parent.addEventListener('click',()=>{
+        //     console.log("parent");
+
+        //     setTimeout(()=>{
+        //     parent.style.background = "black";
+        //     },1000);
+        // })
+
+        // child.addEventListener('click', ()=>{
+        //     console.log("child");
+        // })
+
+///////////////////////////////////////////////////////////
+
+        // let divs = document.querySelectorAll("div")
+        // console.log(divs);
+        // divs.forEach((div)=>{
+        //     div.addEventListener('click',()=>{
+        //     console.log('hi');
+        //     })
+        // })
+
+//////////////////////////////////////////////////////////
+
+        function addGlobalEvent(type, selector, callback){
+            document.addEventListener(type,()=>{
+                if(event.target.matches(selector)){
+                    callback();
+                }
+            })
+        }
+
+        addGlobalEvent("click", ".parent", ()=>{setTimeout(()=>{
+            document.body.style.background = "purple";
+        },1000)})
+        
+    </script>
+</body>
+</html>

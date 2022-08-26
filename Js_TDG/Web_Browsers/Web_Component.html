@@ -63,7 +63,8 @@
                 static get observedAttribute() { //需不需要呼叫instance來完成(例如：instance.observedAttribute())，如果不需要或沒必要，用static(直接呼叫class來發動)即可
                     return ["diameter", "color"];
                 }
-
+                //This callback is invoked when one of the attributes listed above changes,
+                //either when the custom element is first parse, or later
                 attributeChangedCallback(name, oldValue, newValue) {
                     switch(name){
                         case "diameter":
@@ -86,6 +87,20 @@
                 get color() {return this.getAttribute("color");}
                 set color(color) {this.setAttribute("color", color);}
             })
+///////////////////////////////////////////////////////////////////////////////
+
+        /*Shadow DOM*/
+            /*Turn a light DOM element into a shadow host*/
+                this.attachShadow({mode:"open"})
+            /*The root of the shadow DOM*/
+                this.ShadowRoot
+
+        /*Example: a <search-box> Web Component*/
+            class searchBox extends HTMLElement {
+                constructor(){
+                    super();
+                }
+            }
     </script>
 </body>
 </html>

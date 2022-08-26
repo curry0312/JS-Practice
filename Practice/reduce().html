@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let people = [
+            {name:'Eric', age:21},
+            {name:'Andy', age:23},
+            {name:'Josh', age:30},
+            {name:'Alex', age:30}
+        ];
+
+        const result = people.reduce((total, person)=>{
+            return total + person.age
+        }, 0);
+        console.log(result);
+////////////////////////////////////////////////
+        const result2 = people.reduce((groups, person)=>{
+            if(groups[person.age] == null){
+                groups[person.age] = [];
+            }
+            groups[person.age].push(person);
+            return groups;
+        },{})
+        console.log(result2)
+
+
+    </script>
+</body>
+</html>
