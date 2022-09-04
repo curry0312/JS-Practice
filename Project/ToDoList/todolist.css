@@ -1,0 +1,376 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --discord-groups:#1e2124;
+    --discord-info:#282b30;
+    --discord-list-section:#36393e;
+    --discord-message:#424549;
+    --discord-blue:#7289da;
+}
+
+
+body{
+    height: 100vh;
+}
+/*------------------------------------------------*/
+.list_message{
+    height: 90%;
+    
+    overflow-y: scroll;
+}
+
+.list_message::-webkit-scrollbar {
+    display: none;
+}
+
+
+.list-section {
+    background: var(--discord-list-section);
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 5px 20px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-section:hover{
+    background: var(--discord-info);
+}
+/*------------------------------------------------*/
+.section_message {
+    position: relative;
+    width: 65%;
+    height: 100vh;
+    margin-left: 20%;
+    padding-top: 50px;
+    background: var(--discord-list-section);
+}
+
+.message {
+    position: absolute;
+    bottom: 3%;
+    left: 3%;
+    right: 3%;
+    width: auto;
+    padding: 8px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: var(--discord-message);
+    border-radius: 10px;
+}
+
+.message-left {
+    display: flex;
+    align-items: center;
+    width: 75%;
+}
+.message-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    gap: 5px;
+}
+
+.message img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.text {
+    font-size: 18px;
+    color: #fff;
+    outline: none;
+    border: none;
+    background: none;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.text::placeholder {
+    color:white;
+    opacity: .6;
+}
+
+.button_add_message, .button_deleteAll_message {
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.deletebutton {
+    padding: 7px 20px;
+    margin-left: 40px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.deletebutton:hover {
+    background-color: rgb(167, 165, 165);
+}
+
+/*--------------------------------------------------------*/
+.section_groups{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 5%;
+
+    background: var(--discord-groups);
+}
+
+.new_group {
+    position: relative;
+    border-radius: 50%;
+    border: none;
+    padding:25px;
+    background:var(--discord-list-section);
+}
+
+.new_group:hover {
+    background: #7289da;
+    border-radius: 30%;
+    transition: .2s ease-in-out;
+}
+.new_group::before {
+    position: absolute;
+    content: '';
+    top: 20px;
+    left: -15px;
+
+    transform: scale(1);
+    width: 10px;
+    height: 9px;
+    background: white;
+    border-radius: 5px;
+
+    z-index: 999;
+}
+
+.new_group:hover::before {
+    transform: scaleY(2.5);
+    transition: .3s ease-in-out;
+}
+
+.section_groups .group-header {
+    position: relative;
+    padding: 12px;
+    border-radius: 50%;
+    background: var(--discord-list-section);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section_groups .group-header:hover{
+    background: var(--discord-blue);
+    border-radius: 30%;
+    transition: .2s ease-out;
+}
+
+.section_groups .group-header::before {
+    position: absolute;
+    content: '';
+    top: 17px;
+    left: -16px;
+
+    transform: scale(0);
+    width: 9px;
+    height: 18px;
+    background: white;
+    border-radius: 5px;
+
+    z-index: 999;
+}
+
+.section_groups .group-header:hover::before {
+    transform: scale(1.2);
+    transition: .2s ease-in-out;
+}
+
+.section_groups .group-header img{
+    width: 25px;
+}
+
+.section_groups .group-list {
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+    background:var(--discord-groups);
+
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10px;
+}
+.section_groups .group-list::-webkit-scrollbar {
+    display: none;
+}
+
+.section_groups .button_add_group {
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/*---------------------------------------------------------*/
+.section_info{
+    position: fixed;
+    left: 5%;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+
+    width: 15%;
+    
+    background: var(--discord-info);
+}
+
+.section_info .info-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+
+    height: 50px;
+    color: white;
+    font-size: 7px;
+    border: 1px solid hsl(0, 0%, 0%, .5);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+    cursor: pointer;
+}
+
+.section_info .info-header:hover{
+    background:var(--discord-message);
+}
+
+.section_info .info-header img {
+    position: absolute;
+    right: 20px;
+    width: 12px;
+}
+/*---------------------------------------------------------*/
+.top_nav{
+    position: fixed;
+    top: 0;
+    left: 20%;
+    right: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 50px;
+    font-size: .5rem;
+
+    background: var(--discord-list-section);
+    color: white;
+
+    border: 1px solid hsla(0, 0%, 0%, .5);
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+
+    z-index: 2;
+}
+
+.top_nav > *{
+    gap: 10px;
+}
+
+.top_nav h2 {
+    font-size: 1.8rem;
+    margin-left: 20px;
+}
+
+.top_nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+
+
+.top_nav ul li {
+    list-style: none;
+}
+
+.top_nav img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.top_nav .search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    border-radius: 7px;
+    background: var(--discord-groups);
+}
+
+.top_nav input {
+    background: none;
+    border: none;
+    outline: none;
+    padding-left: 2px;
+    width: 100px;
+    color: white;
+}
+
+.top_nav input:focus {
+    width: 200px;
+    transition: width .2s ease-out;
+}
+
+.top_nav input::placeholder{
+    color: rgb(166, 164, 164);
+}
+
+.top_nav .search-icon {
+    width: 20px;
+}
+
+/*---------------------------------------------------------*/
+.section_members{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 85%;
+    display: flex;
+    flex-direction: column;
+
+    width: 15%;
+    height: 100vh;
+
+    background: var(--discord-info);
+}
