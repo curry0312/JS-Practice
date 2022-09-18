@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+    <div>
+        <b>Default:</b>
+        <span id="Default"></span>
+    </div>
+    <div>
+        <b>Debounce:</b>
+        <span id="Debounce"></span>
+    </div>
+    <div>
+        <b>Throttle:</b>
+        <span id="Throttle"></span>
+    </div>
+    <script>
+        const input = document.querySelector('input')
+        const defaultText = document.getElementById('Default')
+        const debounceText = document.getElementById('Debounce')
+        const throttleText = document.getElementById('Throttle')
+
+        const updateDebounceText = debounce();
+        const updateThrottleText = throttle()
+            
+        input.addEventListener('input',()=>{
+            defaultText.textContent = input.value;
+            updateDebounceText(debounceText);
+            updateThrottleText(throttleText);
+        })
+
+        console.log("debounce: " ,debounce)
+        console.log("throttle: " ,throttle)
+        console.log("debounce: " ,debounce())
+        console.log("throttle: " ,throttle())
+        console.log("debounce: " ,updateDebounceText)
+        console.log("throttle: " ,updateThrottleText)
+
+
+        function debounce(){
+            let timeout;
+            return function debounceWait(text){
+                clearTimeout(timeout);
+                timeout = setTimeout(()=>{
+                    text.textContent = input.value;
+                },1000)
+            }
+        }
+
+        function throttle() {
+            let shouldWait = false;
+            return function throttleWait(text){
+                if(shouldWait)return;
+                text.textContent = input.value;
+                shouldWait = true;
+                setTimeout(()=>{
+                    shouldWait = false;
+                },1000) 
+            }
+        }
+    </script>
+</body>
+</html>
