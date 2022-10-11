@@ -8,10 +8,31 @@
 </head>
 <body>
     <script>
-         let array = []
-         array[10] = 10
-         array[3] = 3
-         console.log(array)
+        //Reference & value
+        let c = [1,2] //0x01
+        console.log(c)
+        let d = c //0x01
+        add(d,3)
+        console.log(d)
+
+        function add(array, element){
+            array = [element] //0x02
+            console.log(array)
+        }
+
+        //Example-Practice
+        let x = 50;
+        function change(val){
+            val = val * 50
+            return val
+        }
+        change(50)
+        
+        console.log(x)
+
+        //new Array() constructor
+         let a2 = new Array(5,4,3,2,1,..."testing, testing");
+         console.log(a2)
     </script>
     
 </body>
