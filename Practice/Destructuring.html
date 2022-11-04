@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*Array Destructuring*/
+        const alphabet = ['A','B','C','D','E','F']
+        const numbers = ['1', '2', '3', '4', '5', '6']
+
+        // const a = alphabet[0]
+        // const b = alphabet[1]
+        const [a, b, ...rest] = alphabet
+        console.log(a)
+        console.log(b)
+        console.log(rest)
+
+
+        /*function Destructuring*/
+        function sumAndMultiply(a,b) {
+            return[a+b, a*b]
+        }
+        /*Object Destructuring*/
+        const person1 = {
+            name: 'WANG-WEI-TSE',
+            age: 21,
+            favoriteFood: 'rice',
+            games: {
+                FPS: 'valorant',
+                AAA: 'stalker'
+            }
+        }
+
+        const {name} = person1
+        console.log(name)
+        console.log(AAA)
+    </script>
+</body>
+</html>

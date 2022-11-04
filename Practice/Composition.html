@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //inheritance
+        class Monster {
+            constructor(name){
+                this.name = name
+            }
+            walk(){
+                console.log(`${this.name} walked`)
+            }
+            attack(){
+                console.log(`${this.name} attacked`)
+            }
+        }
+
+        class flyingMonster extends Monster {
+            fly() {
+                console.log(`${this.name} flew`)
+            }
+        }
+
+        const bear = new Monster('bear')
+        bear.walk()
+        bear.attack()
+
+        const angryBird = new flyingMonster('angryBird')
+        angryBird.fly()
+
+        //composition
+        function attacker({name}) {
+            return {
+                attack: () => {console.log(`${name} attacked`)}
+            }
+        }
+        function flyer({name}) {
+            return {
+                fly: () => {console.log(`${name}flew`)}
+            }
+        }
+
+        function attackMonsterCreator(name) {
+            const monster = {name: name}
+            console.log(monster)
+            return {
+                ...monster,
+                ...attacker(monster),
+            }
+        }
+
+        function flyerMonsterCreator(name) {
+            const monster = {name: name}
+            return {
+                ...monster,
+                ...flyer(monster)
+            }
+        }
+
+        const dog = attackMonsterCreator('dog')
+        dog.attack()
+        
+
+    </script>
+</body>
+</html>

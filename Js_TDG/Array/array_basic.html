@@ -29,7 +29,7 @@
            /*More example*/
             let original = [1,2,3];
             let copy = [...original];
-            copy[0] = 0; //Modifying the copy doesn't change the original //cope = [0,2,3]
+            copy[0] = 0; //Modifying the copy doesn't change the original //copy = [0,2,3]
             original[0] // => 1 //original = [1,2,3]
         
             /*String are iterable*/
@@ -63,7 +63,7 @@
             /*array is like object, we can give them a name*/
                 a[-1.23] = true; //This creates a property named "-1.23"
                 a["1000"] = 0; //This the 1001st element of the array
-                a[1.000] = 0; //Array index 1. Same as a[1] = 1;+
+                a[1.000] = 0; //Array index 1. Same as a[1] = 1;
             
             /*out of bounds*/
                 let a = [true, false];  //This array has elements at index 0 and 1;
